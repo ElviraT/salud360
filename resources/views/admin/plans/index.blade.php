@@ -57,7 +57,7 @@
                                                         data-bs-record-title="{{ ' El plan ' }}{{ $plan->name }}"
                                                         data-bs-action="{{ route('plans.destroy', $plan) }}"
                                                         title="{{ __('Delete Plan') }}"><i
-                                                            class="far fa-trash-alt me-2"></i>@lang('Delete')</a>
+                                                            class="uil-trash-alt me-2"></i>@lang('Delete')</a>
                                                     {{-- @endcan --}}
                                                 </td>
                                             </tr>
@@ -78,7 +78,7 @@
                     {{-- @can('plans.store') --}}
 
                     <a class="btn btn-primary" href="#" data-bs-toggle="modal"
-                        data-bs-action="{{ route('plans.store') }}" data-bs-target="#modal_plan"><i
+                        data-bs-action="{{ route('payment.store') }}" data-bs-target="#payment_details"><i
                             class="uil-plus-circle"></i>&nbsp;{{ __('Change Plan') }}</a>
 
                     {{-- @endcan --}}
@@ -88,8 +88,8 @@
         </div>
         <div class="row pt-3">
             <div class="col-md-4">
-                <div
-                    class="card card-pricing {{ auth()->user()->plan->name == 'Medio' ? 'card-pricing-recommended' : '' }}">
+                <div class="card card-pricing {{ auth()->user()->plan->name == 'Medio' ? 'card-pricing-recommended' : '' }}"
+                    style="max-height: 400px; overflow-y: auto !important;">
                     <div class="card-body text-center">
                         @if (auth()->user()->plan->name == 'Medio')
                             <div class='card-pricing-plan-tag'>{{ __('Recommended') }}</div>
@@ -118,6 +118,8 @@
 @section('modal')
     @if (Auth::user()->hasRole('SuperAdmin'))
         @include('modales.plans')
+        @include('modales.eliminar')
+    @else
+        @include('modales.payment')
     @endif
-    @include('modales.eliminar')
 @endsection

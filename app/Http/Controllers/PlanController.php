@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
 use App\Models\Benefits;
+use App\Models\PaymentMethod;
 use App\Models\Plan;
 use App\Models\PlanBenefits;
 use Brian2694\Toastr\Facades\Toastr;
@@ -20,7 +22,10 @@ class PlanController extends Controller
             $beneficios = Benefits::all();
             return view('admin.plans.index', compact('plans', 'beneficios'));
         } else {
-            return view('admin.plans.index');
+            $plans = Plan::where('name', '<>', 'Free')->get();
+            $methods = PaymentMethod::all();
+            $banks = Bank::where('user_id', 1)->get();
+            return view('admin.plans.index', compact('methods', 'plans', 'banks'));
         }
     }
 

@@ -109,5 +109,30 @@
 
         const chart = new ApexCharts(document.getElementById('sessions-overview'), options);
         chart.render();
+        !(function(s) {
+            "use strict";
+
+            function e() {
+                (this.$body = s("body")), (this.charts = []);
+            }
+            (e.prototype.init = function() {
+                s("#dash-daterange").daterangepicker({
+                        singleDatePicker: !0
+                    }),
+                    this.initCharts(),
+                    this.initMaps(),
+                    window.setInterval(function() {
+                        var e = Math.floor(600 * Math.random() + 150);
+                        s("#active-users-count").text(e),
+                            s("#active-views-count").text(Math.floor(Math.random() * e + 200));
+                    }, 2e3);
+            }),
+            (s.AnalyticsDashboard = new e()),
+            (s.AnalyticsDashboard.Constructor = e);
+        })(window.jQuery),
+        (function() {
+            "use strict";
+            window.jQuery.AnalyticsDashboard.init();
+        })();
     </script>
 @endsection

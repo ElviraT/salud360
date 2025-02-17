@@ -1,10 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\BankController;
+use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\MeetingController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\registroController;
+use App\Http\Controllers\Admin\Reportes\ReportePagosController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PlanController;
@@ -53,10 +57,32 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/permissions/store', [PermissionController::class, 'store'])->name('permissions.store')->middleware(CheckPlan::class);
 
     // CRUD PLANS
-    Route::get('/plans', [PlanController::class, 'index'])->name('plans.index')->middleware(CheckPlan::class);
-    Route::post('/plans/store', [PlanController::class, 'store'])->name('plans.store')->middleware(CheckPlan::class);
-    Route::get('/plans/{plan}/edit', [PlanController::class, 'edit'])->name('plans.edit')->middleware(CheckPlan::class);
-    Route::put('/plans/update/{plan}', [PlanController::class, 'update'])->name('plans.update')->middleware(CheckPlan::class);
-    Route::delete('/plans/destroy/{plan}', [PlanController::class, 'destroy'])->name('plans.destroy')->middleware(CheckPlan::class);
+    Route::get('/plans', [PlanController::class, 'index'])->name('plans.index');
+    Route::post('/plans/store', [PlanController::class, 'store'])->name('plans.store');
+    Route::get('/plans/{plan}/edit', [PlanController::class, 'edit'])->name('plans.edit');
+    Route::put('/plans/update/{plan}', [PlanController::class, 'update'])->name('plans.update');
+    Route::delete('/plans/destroy/{plan}', [PlanController::class, 'destroy'])->name('plans.destroy');
     // Route::resource('users', UserController::class);
+
+    //PAGO DE PLAN
+    Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
+    Route::get('/payment/{id}/consult', [PaymentController::class, 'consult']);
+
+    // CRUD CURRENCY
+    Route::get('/currencies', [CurrencyController::class, 'index'])->name('currencies.index')->middleware(CheckPlan::class);
+    Route::post('/currencies/store', [CurrencyController::class, 'store'])->name('currencies.store')->middleware(CheckPlan::class);
+    Route::get('/currencies/{currency}/edit', [CurrencyController::class, 'edit'])->name('currencies.edit')->middleware(CheckPlan::class);
+    Route::put('/currencies/update/{currency}', [CurrencyController::class, 'update'])->name('currencies.update')->middleware(CheckPlan::class);
+    Route::delete('/currencies/destroy/{currency}', [CurrencyController::class, 'destroy'])->name('currencies.destroy')->middleware(CheckPlan::class);
+
+    // CRUD BANKS
+    Route::get('/banks', [BankController::class, 'index'])->name('banks.index')->middleware(CheckPlan::class);
+    Route::post('/banks/store', [BankController::class, 'store'])->name('banks.store')->middleware(CheckPlan::class);
+    Route::get('/banks/{bank}/edit', [BankController::class, 'edit'])->name('banks.edit')->middleware(CheckPlan::class);
+    Route::put('/banks/update/{bank}', [BankController::class, 'update'])->name('banks.update')->middleware(CheckPlan::class);
+    Route::delete('/banks/destroy/{bank}', [BankController::class, 'destroy'])->name('banks.destroy')->middleware(CheckPlan::class);
+
+    // REPORTES
+    Route::get('/reportes-pagos', [ReportePagosController::class, 'index'])->name('report.pagos')->middleware(CheckPlan::class);
+    Route::post('/actualizarStatus/{id}', [ReportePagosController::class, 'actualizarStatus'])->name('actualizar.status')->middleware(CheckPlan::class);
 });

@@ -1,4 +1,14 @@
 <script>
+    $(document).on('show.bs.modal', '#payment_details', function(e) {
+        var modal = $(e.delegateTarget),
+            data = $(e.relatedTarget).data();
+        $("#payment_date").datepicker({
+            format: 'yyyy-mm-dd',
+            dropdownParent: "#payment_details"
+
+        });
+        $('.title').text("@lang('Change Plan')");
+    });
     $(document).on('show.bs.modal', '#modal_plan', function(e) {
         var modal = $(e.delegateTarget),
             data = $(e.relatedTarget).data();
@@ -30,5 +40,25 @@
     });
     $(document).on('hidden.bs.modal', '#modal_plan', function(e) {
         $('#name').val('');
+    });
+    $(document).ready(function() {
+        "use strict";
+        $('#plan_id').on('change', function() {
+            $.getJSON('payment/' + $(this).val() + '/consult', function(data) {
+                $('#monto').val(data.price);
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        "use strict";
+        $('#bank_id').on('change', function() {
+            var textoSeleccionado = $('#bank_id option:selected').text();
+            var array = textoSeleccionado.split("-");
+            $('#currency').val($.trim(array[1]));
+            // $.getJSON('payment/' + $(this).val() + '/consult', function(data) {
+            //     $('#monto').val(data.price);
+            // });
+        });
     });
 </script>

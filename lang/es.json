@@ -341,5 +341,21 @@
     "You are receiving this email because we received a password reset request for your account.": "Ha recibido este mensaje porque se solicitó un restablecimiento de contraseña para su cuenta.",
     "You're deleting": "Vas a eliminar",
     "You're logged in!": "¡Usted está conectado!",
-    "Your email address is unverified.": "Su dirección de correo electrónico no está verificada."
+    "Your email address is unverified.": "Su dirección de correo electrónico no está verificada.",
+    "Currency": "Moneda",
+    "Currencies": "Monedas",
+    "Add Currency": "Agregar Moneda",
+    "Delete Currency": "Eliminar Moneda",
+    "Edit Currency": "Editar Moneda",
+    "Simbol": "Simbolo",
+    "Is Principal": "Es Principal",
+    "Created at": "Creado el",
+    "Plans": "Planes",
+    "Plan":"Plan",
+    "Add Plan": "Agregar Plan",
+    "Edit Plan": "Editar Plan",
+    "Duration":"Duración",
+    "Plan Name": "Nombre del Plan",
+    "Description":"Descripción",
+    "Consultation": "Consultorio"
 }

@@ -47,7 +47,15 @@
             <li class="side-nav-title">{{ __('Setting') }}</li>
             <a href="{{ route('permissions.index') }}" class="side-nav-link">
                 <i class="uil-lock"></i>
-                <span> {{ __('Role & Permission') }} </span>
+                <span> {{ __('Roles & Permission') }} </span>
+            </a>
+            <a href="{{ route('currencies.index') }}" class="side-nav-link">
+                <i class="uil-money-bill"></i>
+                <span> {{ __('Currency') }} </span>
+            </a>
+            <a href="{{ route('banks.index') }}" class="side-nav-link">
+                <i class="uil-money-withdrawal"></i>
+                <span> {{ __('Banks') }} </span>
             </a>
             <a href="{{ route('plans.index') }}" class="side-nav-link">
                 <i class="uil-file-check-alt"></i>
@@ -59,6 +67,13 @@
                 <a href="{{ route('meeting') }}" class="side-nav-link">
                     <i class="uil-webcam"></i>
                     <span> {{ __('Meeting') }} </span>
+                </a>
+            </li>
+            <li class="side-nav-title">{{ __('Reports') }}</li>
+            <li class="side-nav-item">
+                <a href="{{ route('report.pagos') }}" class="side-nav-link">
+                    <i class="uil-file"></i>
+                    <span> {{ __('Payment Report') }} </span>
                 </a>
             </li>
         </ul>
