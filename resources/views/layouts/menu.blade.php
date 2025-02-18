@@ -31,7 +31,7 @@
     </div>
 
     <!-- Sidebar -->
-    <div class="h-100" id="leftside-menu-container" data-simplebar>
+    <div class="menu h-100" id="leftside-menu-container" data-simplebar>
         <!--- Sidemenu -->
         <ul class="side-nav">
 
@@ -45,22 +45,48 @@
             </li>
 
             <li class="side-nav-title">{{ __('Setting') }}</li>
-            <a href="{{ route('permissions.index') }}" class="side-nav-link">
-                <i class="uil-lock"></i>
-                <span> {{ __('Roles & Permission') }} </span>
-            </a>
-            <a href="{{ route('currencies.index') }}" class="side-nav-link">
-                <i class="uil-money-bill"></i>
-                <span> {{ __('Currency') }} </span>
-            </a>
-            <a href="{{ route('banks.index') }}" class="side-nav-link">
-                <i class="uil-money-withdrawal"></i>
-                <span> {{ __('Banks') }} </span>
-            </a>
-            <a href="{{ route('plans.index') }}" class="side-nav-link">
-                <i class="uil-file-check-alt"></i>
-                <span> {{ __('Plans') }} </span>
-            </a>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarUsers" aria-expanded="false" aria-controls="sidebarUsers"
+                    class="side-nav-link">
+                    <i class="uil-users-alt"></i>
+                    <span> {{ __('User Settings') }} </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarUsers">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{ route('permissions.index') }}"> {{ __('Roles & Permission') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('users.index') }}">{{ __('Users') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('medicals.index') }}">{{ __('Medicals') }}</a>
+                        </li>
+                        <li>
+                            <a href="#">{{ __('Patients') }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('currencies.index') }}" class="side-nav-link">
+                    <i class="uil-money-bill"></i>
+                    <span> {{ __('Currency') }} </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('banks.index') }}" class="side-nav-link">
+                    <i class="uil-money-withdrawal"></i>
+                    <span> {{ __('Banks') }} </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('plans.index') }}" class="side-nav-link">
+                    <i class="uil-file-check-alt"></i>
+                    <span> {{ __('Plans') }} </span>
+                </a>
+            </li>
             <li class="side-nav-title">{{ __('Consultation') }}</li>
 
             <li class="side-nav-item">

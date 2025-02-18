@@ -176,17 +176,10 @@
     <script src="{{ asset('assets/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/demo.datatable-init.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.min.js') }}"></script>
-    <script>
-        $(document).on('show.bs.modal', '#confirm-delete', function(e) {
-            var data = $(e.relatedTarget).data();
-            $("#form-eliminar").attr('action', data.bsAction);
-            $('#id').val(data.bsRecordId);
-            $('.title', this).text(data.bsRecordTitle);
-            $('.btn-ok', this).data('recordId', data.bsRecordId);
-        });
-    </script>
+    @include('layouts.js.function')
     {!! Toastr::message() !!}
     @yield('script')
     @yield('modal')

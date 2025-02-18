@@ -357,5 +357,14 @@
     "Duration":"Duración",
     "Plan Name": "Nombre del Plan",
     "Description":"Descripción",
-    "Consultation": "Consultorio"
+    "Consultation": "Consultorio",
+    "User Settings": "Config. de Usuarios",
+    "Users": "Usuarios",
+    "Add User": "Agregar Usuario",
+    "Edit User": "Editar Usuario",
+    "Delete User":"Eliminar Usuario",
+    "Created by": "Creado por",
+    "Created on": "Creado el",
+    "Active": "Activo",
+    "Inactive": "Inactivo"
 }

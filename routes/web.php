@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MedicalController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\MeetingController;
 use App\Http\Controllers\Admin\PaymentController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\registroController;
 use App\Http\Controllers\Admin\Reportes\ReportePagosController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PlanController;
 use App\Http\Middleware\CheckPlan;
@@ -55,7 +57,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index')->middleware(CheckPlan::class);
     Route::get('/permissions/create', [PermissionController::class, 'create'])->name('permissions.create')->middleware(CheckPlan::class);
     Route::post('/permissions/store', [PermissionController::class, 'store'])->name('permissions.store')->middleware(CheckPlan::class);
-
+    // CRUD USERS
+    Route::get('/users', [UsersController::class, 'index'])->name('users.index');
+    Route::post('/users/store', [UsersController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [UsersController::class, 'edit'])->name('users.edit');
+    Route::put('/users/update/{user}', [UsersController::class, 'update'])->name('users.update');
+    Route::delete('/users/destroy/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
+    // CRUD MEDICAL
+    Route::get('/medicals', [MedicalController::class, 'index'])->name('medicals.index');
+    Route::post('/medicals/store', [MedicalController::class, 'store'])->name('medicals.store');
+    Route::get('/medicals/{medical}/edit', [MedicalController::class, 'edit'])->name('medicals.edit');
+    Route::put('/medicals/update/{medical}', [MedicalController::class, 'update'])->name('medicals.update');
+    Route::delete('/medicals/destroy/{medical}', [MedicalController::class, 'destroy'])->name('medicals.destroy');
     // CRUD PLANS
     Route::get('/plans', [PlanController::class, 'index'])->name('plans.index');
     Route::post('/plans/store', [PlanController::class, 'store'])->name('plans.store');

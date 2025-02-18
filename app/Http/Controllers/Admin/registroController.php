@@ -27,20 +27,17 @@ class registroController extends Controller
     public function uploadOne($imagen, $carpeta)
     {
 
+        $ruta = '';
         if ($imagen != '') {
 
-            $imageName = time() . '.' . $imagen->extension();
-            $path = 'public/' . $carpeta . $imageName; // Ruta dentro de storage
-
-            // Crear la carpeta si no existe
-            Storage::makeDirectory('public/' . $carpeta, 0755, true);
-
-            // Guardar la imagen
-            $img = Storage::disk('local')->put($path, file_get_contents($imagen));
-            return $path;
-        } else {
-            return '';
+            $imageName = $imagen->getClientOriginalName();
+            $path = 'public/' . $carpeta . $imageName; // Ajusta la ruta
+            $ruta = $carpeta . $imageName;
+            Storage::makeDirectory('public/' . $carpeta); // No necesitas permisos 0755
+            $this->_eliminarArchivo($imageName, $path); // Si _deleteArchivo está en el Trait, usa $this->_deleteArchivo
+            Storage::disk('local')->put($path, file_get_contents($imagen));
         }
+        return $ruta;
     }
     private function _eliminarArchivo($name, $directory)
     {
@@ -144,7 +141,7 @@ class registroController extends Controller
             $cli = Clinic::create($clinicrequest);
         }
         // Asignar rol
-        $user->assignRole('Admin');
+        $user->assignRole('2');
         return $cli;
     }
 }

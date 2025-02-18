@@ -23,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
+        'created_by',
         'plan_id',
         'plan_expires_at',
     ];
@@ -52,5 +54,14 @@ class User extends Authenticatable
     public function plan()
     {
         return $this->belongsTo(Plan::class);
+    }
+    public function rol()
+    {
+        return $this->belongsTo(ModelHasRole::class, 'id', 'model_id');
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }
