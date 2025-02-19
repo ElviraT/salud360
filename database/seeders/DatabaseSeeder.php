@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GenderSeeder::class);
         $this->call(MaritalSeeder::class);
         // $this->call(RelationshipSeeder::class);
-        // $this->call(Day::class);
+        $this->call(Day::class);
         // $this->call(ColorSeeder::class);
         // $this->call(MethodPaymentsSeeder::class);
     }

@@ -31,6 +31,12 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
+        if (empty($request['avatar'])) {
+            $foto = '';
+        } else {
+            $foto = $this->uploadArchive($request['avatar'], 'avatar/');
+        }
+
         try {
             $cliente = User::where('id', $request['created_by'])->first();
             $data = [
@@ -38,7 +44,7 @@ class UsersController extends Controller
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
                 'created_by' => $request['created_by'],
-                'avatar' => $this->uploadArchive($request['avatar'], 'avatar/'),
+                'avatar' => $foto,
                 'plan_id' => $cliente['plan_id'],
                 'plan_expires_at' => $cliente['plan_expires_at'],
                 'active' => 1,
@@ -62,12 +68,18 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (empty($request['avatar'])) {
+            $foto = '';
+        } else {
+            $foto = $this->uploadArchive($request['avatar'], 'avatar/');
+        }
+
         $data = [
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
             'created_by' => $request['created_by'],
-            'avatar' => $this->uploadArchive($request['avatar'], 'avatar/'),
+            'avatar' => $foto,
             'active' => 1,
 
         ];
@@ -76,7 +88,6 @@ class UsersController extends Controller
         } else {
             $data = Arr::except($data, array('password'));
         }
-
         $resultado = array_merge($data);
         try {
             $user = User::find($id);

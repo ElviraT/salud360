@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\registroController;
 use App\Http\Controllers\Admin\Reportes\ReportePagosController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PlanController;
@@ -66,9 +67,17 @@ Route::group(['middleware' => ['auth']], function () {
     // CRUD MEDICAL
     Route::get('/medicals', [MedicalController::class, 'index'])->name('medicals.index');
     Route::post('/medicals/store', [MedicalController::class, 'store'])->name('medicals.store');
+    Route::get('/medicals/{medical}/show', [MedicalController::class, 'show'])->name('medicals.show');
     Route::get('/medicals/{medical}/edit', [MedicalController::class, 'edit'])->name('medicals.edit');
     Route::put('/medicals/update/{medical}', [MedicalController::class, 'update'])->name('medicals.update');
     Route::delete('/medicals/destroy/{medical}', [MedicalController::class, 'destroy'])->name('medicals.destroy');
+    //HORARIOS
+    Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules');
+    Route::post('/schedules/store', [ScheduleController::class, 'store'])->name('schedules.store');
+    Route::get('/schedules/{shedule}/edit', [ScheduleController::class, 'edit'])->name('schedules.edit');
+    Route::put('/schedules/update/{shedule}', [ScheduleController::class, 'update'])->name('schedules.update');
+    Route::delete('/schedules/destroy/{shedule}', [ScheduleController::class, 'destroy'])->name('schedules.destroy');
+
     // CRUD PLANS
     Route::get('/plans', [PlanController::class, 'index'])->name('plans.index');
     Route::post('/plans/store', [PlanController::class, 'store'])->name('plans.store');

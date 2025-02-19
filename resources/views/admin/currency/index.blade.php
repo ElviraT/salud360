@@ -5,13 +5,11 @@
             <div class="content-page-header">
                 <h2>{{ __('Currencies') }}</h2>
                 <div class="col-12" align="right">
-                    {{-- @can('currencies.store') --}}
-
-                    <a class="btn btn-primary" href="#" data-bs-toggle="modal"
-                        data-bs-action="{{ route('currencies.store') }}" data-bs-target="#modal_currency"><i
-                            class="uil-plus-circle"></i>&nbsp;{{ __('Add Currency') }}</a>
-
-                    {{-- @endcan --}}
+                    @can('currencies.store')
+                        <a class="btn btn-primary" href="#" data-bs-toggle="modal"
+                            data-bs-action="{{ route('currencies.store') }}" data-bs-target="#modal_currency"><i
+                                class="uil-plus-circle"></i>&nbsp;{{ __('Add Currency') }}</a>
+                    @endcan
 
                 </div>
             </div>
@@ -42,25 +40,25 @@
                                                 <td>{{ __('No') }}</td>
                                             @endif
                                             <td>
-                                                {{-- @can('currencies.edit') --}}
-                                                <a href="#" type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#modal_currency" class="btn btn-success me-2"
-                                                    data-bs-record-id="{{ $currency->id }}"
-                                                    data-bs-action="{{ route('currencies.update', $currency) }}">
-                                                    <i class="uil-edit-alt"></i>&nbsp;
-                                                    {{ __('Edit Currency') }}
-                                                </a>
-                                                {{-- @endcan --}}
+                                                @can('currencies.edit')
+                                                    <a href="#" type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#modal_currency" class="btn btn-success me-2"
+                                                        data-bs-record-id="{{ $currency->id }}"
+                                                        data-bs-action="{{ route('currencies.update', $currency) }}">
+                                                        <i class="uil-edit-alt"></i>&nbsp;
+                                                        {{ __('Edit Currency') }}
+                                                    </a>
+                                                @endcan
 
-                                                {{-- @can('currencies.destroy') --}}
-                                                <a class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#confirm-delete"
-                                                    data-bs-record-id="{{ $currency->id }}"
-                                                    data-bs-record-title="{{ ' la Moneda ' }}{{ $currency->name }}"
-                                                    data-bs-action="{{ route('currencies.destroy', $currency) }}"
-                                                    title="{{ __('Delete Currency') }}"><i
-                                                        class="uil-trash-alt me-2"></i>@lang('Delete')</a>
-                                                {{-- @endcan --}}
+                                                @can('currencies.destroy')
+                                                    <a class="btn btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#confirm-delete"
+                                                        data-bs-record-id="{{ $currency->id }}"
+                                                        data-bs-record-title="{{ ' la Moneda ' }}{{ $currency->name }}"
+                                                        data-bs-action="{{ route('currencies.destroy', $currency) }}"
+                                                        title="{{ __('Delete Currency') }}"><i
+                                                            class="uil-trash-alt me-2"></i>@lang('Delete')</a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach

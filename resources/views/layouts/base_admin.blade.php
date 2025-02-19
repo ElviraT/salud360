@@ -100,6 +100,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6">
+                            {{ env('APP_NAME') }}
                             <script>
                                 document.write(new Date().getFullYear())
                             </script> © <a href="https://gematechnology.tech"

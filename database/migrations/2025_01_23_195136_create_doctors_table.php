@@ -15,13 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('speciality_id');
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('name');
             $table->unsignedBigInteger('clinic_id');
             $table->string('professional_license');
             $table->longText('bio');
             $table->boolean('active')->default(1);
-            $table->string('photo');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

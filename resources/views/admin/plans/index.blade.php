@@ -6,13 +6,11 @@
                 <div class="content-page-header">
                     <h2>{{ __('Plans') }}</h2>
                     <div class="col-12" align="right">
-                        {{-- @can('plans.store') --}}
-
-                        <a class="btn btn-primary" href="#" data-bs-toggle="modal"
-                            data-bs-action="{{ route('plans.store') }}" data-bs-target="#modal_plan"><i
-                                class="uil-plus-circle"></i>&nbsp;{{ __('Add Plan') }}</a>
-
-                        {{-- @endcan --}}
+                        @can('plans.store')
+                            <a class="btn btn-primary" href="#" data-bs-toggle="modal"
+                                data-bs-action="{{ route('plans.store') }}" data-bs-target="#modal_plan"><i
+                                    class="uil-plus-circle"></i>&nbsp;{{ __('Add Plan') }}</a>
+                        @endcan
 
                     </div>
                 </div>
@@ -40,25 +38,25 @@
                                                 <td>{{ $plan->price }}</td>
                                                 <td>{{ $plan->duration }}</td>
                                                 <td>
-                                                    {{-- @can('plans.edit') --}}
-                                                    <a href="#" type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#modal_plan" class="btn btn-success me-2"
-                                                        data-bs-record-id="{{ $plan->id }}"
-                                                        data-bs-action="{{ route('plans.update', $plan) }}">
-                                                        <i class="uil-edit-alt"></i>&nbsp;
-                                                        {{ __('Edit Plan') }}
-                                                    </a>
-                                                    {{-- @endcan --}}
+                                                    @can('plans.edit')
+                                                        <a href="#" type="button" data-bs-toggle="modal"
+                                                            data-bs-target="#modal_plan" class="btn btn-success me-2"
+                                                            data-bs-record-id="{{ $plan->id }}"
+                                                            data-bs-action="{{ route('plans.update', $plan) }}">
+                                                            <i class="uil-edit-alt"></i>&nbsp;
+                                                            {{ __('Edit Plan') }}
+                                                        </a>
+                                                    @endcan
 
-                                                    {{-- @can('plans.destroy') --}}
-                                                    <a class="btn btn-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#confirm-delete"
-                                                        data-bs-record-id="{{ $plan->id }}"
-                                                        data-bs-record-title="{{ ' El plan ' }}{{ $plan->name }}"
-                                                        data-bs-action="{{ route('plans.destroy', $plan) }}"
-                                                        title="{{ __('Delete Plan') }}"><i
-                                                            class="uil-trash-alt me-2"></i>@lang('Delete')</a>
-                                                    {{-- @endcan --}}
+                                                    @can('plans.destroy')
+                                                        <a class="btn btn-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#confirm-delete"
+                                                            data-bs-record-id="{{ $plan->id }}"
+                                                            data-bs-record-title="{{ ' El plan ' }}{{ $plan->name }}"
+                                                            data-bs-action="{{ route('plans.destroy', $plan) }}"
+                                                            title="{{ __('Delete Plan') }}"><i
+                                                                class="uil-trash-alt me-2"></i>@lang('Delete')</a>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @endforeach

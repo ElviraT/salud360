@@ -17,4 +17,8 @@ class Clinic extends Model
         'description',
         'active',
     ];
+    public function doctors()
+    {
+        return $this->hasMany(Doctor::class);
+    }
 }

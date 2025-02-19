@@ -95,28 +95,29 @@
                                             @endif
                                             <td>{{ $pago->payment_status }}</td>
                                             <td>
-                                                <form action="{{ route('actualizar.status', $pago->id) }}" method="POST">
-                                                    {{-- <form action="#" method="POST"> --}}
-                                                    @csrf
-                                                    <div class="col-12">
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <select name="status" id="combo_status"
-                                                                    class="form-select">
-                                                                    <option value="Pendiente">Pendiente</option>
-                                                                    <option value="Aprobado">Aprobado</option>
-                                                                    <option value="Rechazado">Rechazado</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <button type="submit"
-                                                                    class="btn btn-warning">Actualizar</button>
+                                                @can('actualizar.status')
+                                                    <form action="{{ route('actualizar.status', $pago->id) }}" method="POST">
+                                                        @csrf
+                                                        <div class="col-12">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <select name="status" id="combo_status"
+                                                                        class="form-select">
+                                                                        <option value="Pendiente">Pendiente</option>
+                                                                        <option value="Aprobado">Aprobado</option>
+                                                                        <option value="Rechazado">Rechazado</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <button type="submit"
+                                                                        class="btn btn-warning">Actualizar</button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
 
 
-                                                </form>
+                                                    </form>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach

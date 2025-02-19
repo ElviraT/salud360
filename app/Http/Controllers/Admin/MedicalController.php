@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Clinic;
+use App\Models\Doctor;
+use App\Models\Speciality;
+use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MedicalController extends Controller
 {
@@ -12,39 +18,49 @@ class MedicalController extends Controller
      */
     public function index()
     {
-        return view('admin.users.medical.index');
+        if (Auth::user()->hasRole('SuperAdmin')) {
+            $medicals = Doctor::with(['clinic', 'user'])->get(); // Example relationships
+            $users = User::with('roles')->get(); // Example relationship
+            $specialities = Speciality::all(); // Likely doesn't need eager loading
+            $clinics = Clinic::with('doctors')->get(); // Example relationship
+        } else {
+            $medicals = Doctor::where('created_by', Auth::user()->id)->with(['clinic', 'user'])->get();
+            $users = User::where('created_by', Auth::user()->id)->with('roles')->get();
+            $specialities = Speciality::all(); // Likely doesn't need eager loading
+            $clinics = Clinic::where('user_id', Auth::user()->id)->with('doctors')->get();
+        }
+
+        return view('admin.users.medical.index', compact('medicals', 'users', 'specialities', 'clinics'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        try {
+            Doctor::create($request->post());
+            Toastr::success(__('Added successfully'), __('Medical') . ': ' . $request->input('first_name'));
+        } catch (\Illuminate\Database\QueryException $e) {
+            Toastr::error(__('An error occurred please try again'), 'error');
+        }
+
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Doctor $medical)
     {
-        //
+        $medical->load(['schedules' => function ($query) {
+            $query->with('day'); // Carga la relación day dentro de schedules
+        }, 'speciality', 'user']);
+
+        return response()->json($medical);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $medical = Doctor::find($id);
+        return response()->json($medical);
     }
 
     /**
@@ -52,14 +68,23 @@ class MedicalController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+        try {
+            $medical = Doctor::find($id);
+            $medical->update($request->post());
+            Toastr::success(__('Updated registration'), __('Medical') . ': ' . $request->input('name'));
+        } catch (\Illuminate\Database\QueryException $e) {
+            Toastr::error(__('An error occurred please try again'), 'error');
+        }
+        return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Doctor $medical)
     {
-        //
+        $medical->delete();
+        Toastr::success(__('Registry successfully deleted'), 'Delete');
+        return redirect()->back();
     }
 }

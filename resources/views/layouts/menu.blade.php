@@ -36,72 +36,90 @@
         <ul class="side-nav">
 
             <li class="side-nav-title">{{ __('Menu') }}</li>
-
-            <li class="side-nav-item">
-                <a href="{{ route('inicio') }}" class="side-nav-link">
-                    <i class="uil-heartbeat"></i>
-                    <span> {{ __('Dashboard') }} </span>
-                </a>
-            </li>
-
+            @can('inicio')
+                <li class="side-nav-item">
+                    <a href="{{ route('inicio') }}" class="side-nav-link">
+                        <i class="uil-heartbeat"></i>
+                        <span> {{ __('Dashboard') }} </span>
+                    </a>
+                </li>
+            @endcan
             <li class="side-nav-title">{{ __('Setting') }}</li>
-            <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarUsers" aria-expanded="false" aria-controls="sidebarUsers"
-                    class="side-nav-link">
-                    <i class="uil-users-alt"></i>
-                    <span> {{ __('User Settings') }} </span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <div class="collapse" id="sidebarUsers">
-                    <ul class="side-nav-second-level">
-                        <li>
-                            <a href="{{ route('permissions.index') }}"> {{ __('Roles & Permission') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('users.index') }}">{{ __('Users') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('medicals.index') }}">{{ __('Medicals') }}</a>
-                        </li>
-                        <li>
-                            <a href="#">{{ __('Patients') }}</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="side-nav-item">
-                <a href="{{ route('currencies.index') }}" class="side-nav-link">
-                    <i class="uil-money-bill"></i>
-                    <span> {{ __('Currency') }} </span>
-                </a>
-            </li>
-            <li class="side-nav-item">
-                <a href="{{ route('banks.index') }}" class="side-nav-link">
-                    <i class="uil-money-withdrawal"></i>
-                    <span> {{ __('Banks') }} </span>
-                </a>
-            </li>
-            <li class="side-nav-item">
-                <a href="{{ route('plans.index') }}" class="side-nav-link">
-                    <i class="uil-file-check-alt"></i>
-                    <span> {{ __('Plans') }} </span>
-                </a>
-            </li>
-            <li class="side-nav-title">{{ __('Consultation') }}</li>
+            @canany(['permissions.index', 'users.index', 'medicals.index'])
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebarUsers" aria-expanded="false" aria-controls="sidebarUsers"
+                        class="side-nav-link">
+                        <i class="uil-users-alt"></i>
+                        <span> {{ __('User Settings') }} </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarUsers">
+                        <ul class="side-nav-second-level">
+                            @can('permissions.index')
+                                <li>
+                                    <a href="{{ route('permissions.index') }}"> {{ __('Roles & Permission') }}</a>
+                                </li>
+                            @endcan
+                            @can('users.index')
+                                <li>
+                                    <a href="{{ route('users.index') }}">{{ __('Users') }}</a>
+                                </li>
+                            @endcan
+                            @can('medicals.index')
+                                <li>
+                                    <a href="{{ route('medicals.index') }}">{{ __('Medicals') }}</a>
+                                </li>
+                            @endcan
+                            <li>
+                                <a href="#">{{ __('Patients') }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endcanany
+            @can('currencies.index')
+                <li class="side-nav-item">
+                    <a href="{{ route('currencies.index') }}" class="side-nav-link">
+                        <i class="uil-money-bill"></i>
+                        <span> {{ __('Currency') }} </span>
+                    </a>
+                </li>
+            @endcan
+            @can('banks.index')
+                <li class="side-nav-item">
+                    <a href="{{ route('banks.index') }}" class="side-nav-link">
+                        <i class="uil-money-withdrawal"></i>
+                        <span> {{ __('Banks') }} </span>
+                    </a>
+                </li>
+            @endcan
+            @can('plans.index')
+                <li class="side-nav-item">
+                    <a href="{{ route('plans.index') }}" class="side-nav-link">
+                        <i class="uil-file-check-alt"></i>
+                        <span> {{ __('Plans') }} </span>
+                    </a>
+                </li>
+            @endcan
 
-            <li class="side-nav-item">
-                <a href="{{ route('meeting') }}" class="side-nav-link">
-                    <i class="uil-webcam"></i>
-                    <span> {{ __('Meeting') }} </span>
-                </a>
-            </li>
+            <li class="side-nav-title">{{ __('Consultation') }}</li>
+            @can('meeting')
+                <li class="side-nav-item">
+                    <a href="{{ route('meeting') }}" class="side-nav-link">
+                        <i class="uil-webcam"></i>
+                        <span> {{ __('Meeting') }} </span>
+                    </a>
+                </li>
+            @endcan
             <li class="side-nav-title">{{ __('Reports') }}</li>
-            <li class="side-nav-item">
-                <a href="{{ route('report.pagos') }}" class="side-nav-link">
-                    <i class="uil-file"></i>
-                    <span> {{ __('Payment Report') }} </span>
-                </a>
-            </li>
+            @can('report.pagos')
+                <li class="side-nav-item">
+                    <a href="{{ route('report.pagos') }}" class="side-nav-link">
+                        <i class="uil-file"></i>
+                        <span> {{ __('Payment Report') }} </span>
+                    </a>
+                </li>
+            @endcan
         </ul>
         <!--- End Sidemenu -->
 

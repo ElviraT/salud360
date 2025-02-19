@@ -6,14 +6,14 @@
             <div class="content-page-header">
                 <h2>{{ __('Banks') }}</h2>
                 <div class="col-12" align="right">
-                    {{-- @can('banks.store') --}}
-                    <div class="list-btn">
-                        <a class="btn btn-primary" href="#" data-bs-toggle="modal"
-                            data-bs-action="{{ route('banks.store') }}" data-bs-target="#bank_details"><i
-                                class="uil-plus-circle me-2" aria-hidden="true"></i>@lang('Add Bank')</a>
+                    @can('banks.store')
+                        <div class="list-btn">
+                            <a class="btn btn-primary" href="#" data-bs-toggle="modal"
+                                data-bs-action="{{ route('banks.store') }}" data-bs-target="#bank_details"><i
+                                    class="uil-plus-circle me-2" aria-hidden="true"></i>@lang('Add Bank')</a>
 
-                    </div>
-                    {{-- @endcan --}}
+                        </div>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -46,28 +46,24 @@
                                             <td>{{ $item->extra }}</td>
                                             <td>
 
-                                                {{-- @can('banks.edit') --}}
-
-                                                <a href="#" type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#bank_details" class="btn btn-success me-2"
-                                                    data-bs-record-id="{{ $item->id }}"
-                                                    data-bs-action="{{ route('banks.update', $item) }}">
-                                                    <i class="uil-edit-alt"></i>&nbsp;
-                                                    {{ __('Edit Bank') }}
-                                                </a>
-
-                                                {{-- @endcan --}}
-                                                {{-- @can('banks.destroy') --}}
-
-                                                <a class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#confirm-delete"
-                                                    data-bs-record-id="{{ $item->id }}"
-                                                    data-bs-record-title="{{ 'El banco ' }}{{ $item->name }}"
-                                                    data-bs-action="{{ route('banks.destroy', $item) }}"
-                                                    title="{{ __('Delete Bank') }}"><i
-                                                        class="uil-trash-alt me-2"></i>@lang('Delete')</a>
-
-                                                {{-- @endcan --}}
+                                                @can('banks.edit')
+                                                    <a href="#" type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#bank_details" class="btn btn-success me-2"
+                                                        data-bs-record-id="{{ $item->id }}"
+                                                        data-bs-action="{{ route('banks.update', $item) }}">
+                                                        <i class="uil-edit-alt"></i>&nbsp;
+                                                        {{ __('Edit Bank') }}
+                                                    </a>
+                                                @endcan
+                                                @can('banks.destroy')
+                                                    <a class="btn btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#confirm-delete"
+                                                        data-bs-record-id="{{ $item->id }}"
+                                                        data-bs-record-title="{{ 'El banco ' }}{{ $item->name }}"
+                                                        data-bs-action="{{ route('banks.destroy', $item) }}"
+                                                        title="{{ __('Delete Bank') }}"><i
+                                                            class="uil-trash-alt me-2"></i>@lang('Delete')</a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach

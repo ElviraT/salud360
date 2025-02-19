@@ -5,12 +5,10 @@
             <div class="content-page-header">
                 <h2>{{ __('Roles & Permission') }}</h2>
                 <div class="col-12" align="right">
-                    {{-- @can('roles.store') --}}
-
-                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-action="{{ route('roles.store') }}"
-                        data-bs-target="#modal_role"><i class="uil-plus-circle"></i>&nbsp;{{ __('Add Roles') }}</a>
-
-                    {{-- @endcan --}}
+                    @can('roles.store')
+                        <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-action="{{ route('roles.store') }}"
+                            data-bs-target="#modal_role"><i class="uil-plus-circle"></i>&nbsp;{{ __('Add Roles') }}</a>
+                    @endcan
 
                 </div>
             </div>
@@ -36,23 +34,23 @@
                                             <td>{{ $item->id }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                                            <td class="d-flex align-items-center">
-                                                {{-- @can('roles.edit') --}}
-                                                <a href="#" type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#modal_role" class="btn btn-success me-2"
-                                                    data-bs-record-id="{{ $item->id }}"
-                                                    data-bs-action="{{ route('roles.update', $item) }}">
-                                                    <i class="uil-edit-alt"></i>&nbsp;
-                                                    {{ __('Edit Role') }}
-                                                </a>
-                                                {{-- @endcan --}}
-                                                {{-- @can('permissions.create') --}}
-                                                <a href="{{ route('permissions.create', ['rol' => $item]) }}"
-                                                    class="btn btn-info me-2" onclick=" loading_show();"><i
-                                                        class="uil-shield"></i>&nbsp;
-                                                    {{ __('Permissions') }}</a>
-                                            </td>
-                                            {{-- @endcan --}}
+                                            <td>
+                                                @can('roles.edit')
+                                                    <a href="#" type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#modal_role" class="btn btn-success me-2"
+                                                        data-bs-record-id="{{ $item->id }}"
+                                                        data-bs-action="{{ route('roles.update', $item) }}">
+                                                        <i class="uil-edit-alt"></i>&nbsp;
+                                                        {{ __('Edit Role') }}
+                                                    </a>
+                                                @endcan
+                                                @can('permissions.create')
+                                                    <a href="{{ route('permissions.create', ['rol' => $item]) }}"
+                                                        class="btn btn-info me-2" onclick=" loading_show();"><i
+                                                            class="uil-shield"></i>&nbsp;
+                                                        {{ __('Permissions') }}</a>
+                                                </td>
+                                            @endcan
                                         </tr>
                                     @endforeach
                             </table>

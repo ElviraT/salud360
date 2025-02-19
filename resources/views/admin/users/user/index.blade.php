@@ -5,12 +5,10 @@
             <div class="content-page-header">
                 <h2>{{ __('Users') }}</h2>
                 <div class="col-12" align="right">
-                    {{-- @can('users.store') --}}
-
-                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-action="{{ route('users.store') }}"
-                        data-bs-target="#modal_user"><i class="uil-plus-circle"></i>&nbsp;{{ __('Add User') }}</a>
-
-                    {{-- @endcan --}}
+                    @can('users.store')
+                        <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-action="{{ route('users.store') }}"
+                            data-bs-target="#modal_user"><i class="uil-plus-circle"></i>&nbsp;{{ __('Add User') }}</a>
+                    @endcan
 
                 </div>
             </div>
@@ -54,25 +52,25 @@
                                             </td>
 
                                             <td>
-                                                {{-- @can('users.edit') --}}
-                                                <a href="#" type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#modal_user" class="btn btn-success me-2"
-                                                    data-bs-record-id="{{ $item->id }}"
-                                                    data-bs-action="{{ route('users.update', $item) }}">
-                                                    <i class="uil-edit-alt"></i>&nbsp;
-                                                    {{ __('Edit User') }}
-                                                </a>
-                                                {{-- @endcan --}}
+                                                @can('users.edit')
+                                                    <a href="#" type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#modal_user" class="btn btn-success me-2"
+                                                        data-bs-record-id="{{ $item->id }}"
+                                                        data-bs-action="{{ route('users.update', $item) }}">
+                                                        <i class="uil-edit-alt"></i>&nbsp;
+                                                        {{ __('Edit User') }}
+                                                    </a>
+                                                @endcan
 
-                                                {{-- @can('users.destroy') --}}
-                                                <a class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#confirm-delete"
-                                                    data-bs-record-id="{{ $item->id }}"
-                                                    data-bs-record-title="{{ ' El Usuario ' }}{{ $item->name }}"
-                                                    data-bs-action="{{ route('users.destroy', $item) }}"
-                                                    title="{{ __('Delete User') }}"><i
-                                                        class="uil-trash-alt me-2"></i>@lang('Delete')</a>
-                                                {{-- @endcan --}}
+                                                @can('users.destroy')
+                                                    <a class="btn btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#confirm-delete"
+                                                        data-bs-record-id="{{ $item->id }}"
+                                                        data-bs-record-title="{{ ' El Usuario ' }}{{ $item->name }}"
+                                                        data-bs-action="{{ route('users.destroy', $item) }}"
+                                                        title="{{ __('Delete User') }}"><i
+                                                            class="uil-trash-alt me-2"></i>@lang('Delete')</a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach

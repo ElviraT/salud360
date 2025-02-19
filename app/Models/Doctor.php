@@ -10,12 +10,28 @@ class Doctor extends Model
     [
         'user_id',
         'speciality_id',
-        'first_name',
-        'last_name',
+        'name',
         'clinic_id',
         'professional_license',
         'bio',
         'active',
-        'photo',
+        'created_by'
     ];
+    public function clinic()
+    {
+        return $this->belongsTo(Clinic::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function speciality()
+    {
+        return $this->belongsTo(Speciality::class);
+    }
+    // Relación con Schedules (un doctor tiene muchos horarios)
+    public function Schedules()
+    {
+        return $this->hasMany(Schedules::class);
+    }
 }
