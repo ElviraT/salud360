@@ -3,20 +3,20 @@
     <!-- Brand Logo Light -->
     <a href="{{ route('home') }}" class="logo logo-light">
         <span class="logo-lg">
-            <img src="{{ asset('assets/images/logo-dark.png') }}" alt="logo">
+            <img src="{{ asset('assets/images/logo.png') }}" alt="logo" width="80%">
         </span>
         <span class="logo-sm">
-            <img src="{{ asset('assets/images/favicon.png') }}" alt="small logo" class="image-fluid" width="50%">
+            <img src="{{ asset('assets/images/small-ligth.png') }}" alt="small logo" class="image-fluid">
         </span>
     </a>
 
     <!-- Brand Logo Dark -->
     <a href="{{ route('home') }}" class="logo logo-dark">
         <span class="logo-lg">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="dark logo">
+            <img src="{{ asset('assets/images/logo-dark.png') }}" alt="dark logo" width="80%">
         </span>
         <span class="logo-sm">
-            <img src="{{ asset('assets/images/favicon.png') }}" alt="small logo" width="50%">
+            <img src="{{ asset('assets/images/small-dark.png') }}" alt="small logo">
         </span>
     </a>
 
@@ -70,9 +70,11 @@
                                     <a href="{{ route('medicals.index') }}">{{ __('Medicals') }}</a>
                                 </li>
                             @endcan
+                            {{-- @can('patients') --}}
                             <li>
-                                <a href="#">{{ __('Patients') }}</a>
+                                <a href="{{ route('patients') }}">{{ __('Patients') }}</a>
                             </li>
+                            {{-- @endcan --}}
                         </ul>
                     </div>
                 </li>

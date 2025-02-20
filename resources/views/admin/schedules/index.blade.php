@@ -5,14 +5,13 @@
             <div class="content-page-header">
                 <h2>{{ __('Schedules') }}</h2>
                 <div class="col-12" align="right">
-                    {{-- @can('schedules.store') --}}
-                    <a class="btn btn-primary" href="#" data-bs-toggle="modal"
-                        data-bs-action="{{ route('schedules.store') }}" data-bs-target="#modal_schedule"><i
-                            class="uil-plus-circle"></i>&nbsp;{{ __('Add Schedule') }}</a>
-                    <a href="{{ route('medicals.index') }}" class="btn btn-info"><i
-                            class=" uil-history-alt"></i>&nbsp;{{ __('Back') }}</a>
-                    {{-- @endcan --}}
-
+                    @can('schedules.store')
+                        <a class="btn btn-primary" href="#" data-bs-toggle="modal"
+                            data-bs-action="{{ route('schedules.store') }}" data-bs-target="#modal_schedule"><i
+                                class="uil-plus-circle"></i>&nbsp;{{ __('Add Schedule') }}</a>
+                        <a href="{{ route('medicals.index') }}" class="btn btn-info"><i
+                                class=" uil-history-alt"></i>&nbsp;{{ __('Back') }}</a>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -38,24 +37,25 @@
                                             <td>{{ $item->start_hour }}</td>
                                             <td>{{ $item->end_hour }}</td>
                                             <td>
-                                                {{-- @can('schedules.edit') --}}
-                                                <a href="#" type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#modal_schedule" class="btn btn-success me-2"
-                                                    data-bs-record-id="{{ $item->id }}"
-                                                    data-bs-action="{{ route('schedules.update', $item) }}">
-                                                    <i class="uil-edit-alt"></i>
-                                                    {{ __('Edit Schedule') }}
-                                                </a>
-                                                {{-- @endcan --}}
-                                                {{-- @can('schedules.destroy') --}}
-                                                <a class="btn btn-danger me-2" data-bs-toggle="modal"
-                                                    data-bs-target="#confirm-delete"
-                                                    data-bs-record-id="{{ $item->id }}"
-                                                    data-bs-record-title="{{ 'El Horario ' . $item->day->name }}"
-                                                    data-bs-action="{{ route('schedules.destroy', $item) }}"
-                                                    title="{{ __('Delete Schedule') }}"><i
-                                                        class="uil-trash-alt"></i>@lang('Delete')</a>
-                                                {{-- @endcan --}}
+                                                @can('schedules.edit')
+                                                    <a href="#" type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#modal_schedule" class="btn btn-success me-2"
+                                                        data-bs-record-id="{{ $item->id }}"
+                                                        data-bs-action="{{ route('schedules.update', $item) }}">
+                                                        <i class="uil-edit-alt"></i>
+                                                        {{ __('Edit Schedule') }}
+                                                    </a>
+                                                @endcan
+                                                @can('schedules.destroy')
+                                                    <a class="btn btn-danger me-2" data-bs-toggle="modal"
+                                                        data-bs-target="#confirm-delete"
+                                                        data-bs-record-id="{{ $item->id }}"
+                                                        data-bs-record-title="{{ 'El Horario ' . $item->day->name }}"
+                                                        data-bs-action="{{ route('schedules.destroy', $item) }}"
+                                                        title="{{ __('Delete Schedule') }}"><i
+                                                            class="uil-trash-alt"></i>@lang('Delete')
+                                                    </a>
+                                                @endcan
                                         </tr>
                                     @endforeach
                                 </tbody>
