@@ -188,7 +188,7 @@
                                                                                 <option>{{ __('Select') }}</option>
                                                                                 @foreach ($marital as $item)
                                                                                     <option
-                                                                                        value="{{ $item->name }}">
+                                                                                        value="{{ $item->id }}">
                                                                                         {{ $item->name }}
                                                                                     </option>
                                                                                 @endforeach
@@ -204,7 +204,7 @@
                                                                                 <option>{{ __('Select') }}</option>
                                                                                 @foreach ($sexes as $item)
                                                                                     <option
-                                                                                        value="{{ $item->name }}">
+                                                                                        value="{{ $item->id }}">
                                                                                         {{ $item->name }}
                                                                                     </option>
                                                                                 @endforeach
@@ -220,6 +220,7 @@
                                                                                     id="Date_of_birth"
                                                                                     class="form-control date"
                                                                                     data-toggle="date-picker"
+                                                                                    data-date-autoclose="true"
                                                                                     data-single-date-picker="true">
                                                                                 <span
                                                                                     class="input-group-text bg-primary border-primary text-white">
@@ -384,7 +385,8 @@
                                                                     <!-- Primary Switch-->
                                                                     <label>{{ __('Data Collection') }}</label>
                                                                     <input type="checkbox" id="data_collection"
-                                                                        checked data-switch="primary" />
+                                                                        checked data-switch="primary"
+                                                                        name="data_collection" />
                                                                     <label for="data_collection"
                                                                         data-on-label="{{ _('Yes') }}"
                                                                         data-off-label="{{ __('No') }}"></label>

@@ -33,8 +33,8 @@
                                 <tbody>
                                     @foreach ($patients as $item)
                                         <tr>
-                                            <td>{{ $item->user->name }}&nbsp;{{ $item->user->last_name }}</td>
-                                            <td>{{ $item->user->movil }}</td>
+                                            <td>{{ $item->user->name }}</td>
+                                            <td>{{ $item->phone }}</td>
                                             <td>{{ $item->marital->name }}</td>
                                             <td>{{ $item->created_at->format('j F, Y, g:i A') }}</td>
                                             <td>
