@@ -85,7 +85,7 @@
             <div class="content">
 
                 <!-- Start Content-->
-                <div class="container-fluid">
+                <div class="container-fluid mt-3">
                     {{-- {{ dd(env('APP_LOCALE')) }} --}}
                     @yield('content')
 

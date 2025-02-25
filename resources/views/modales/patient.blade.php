@@ -35,7 +35,8 @@
                                                         </li>
                                                         <li class="nav-item">
                                                             <a href="#profile-tab" data-bs-toggle="tab"
-                                                                data-toggle="tab" class="nav-link rounded-0">
+                                                                data-toggle="tab" class="nav-link rounded-0"
+                                                                id="tab_2" disabled>
                                                                 <i
                                                                     class="mdi mdi-account-check font-18 align-middle me-1"></i>
                                                                 <span
@@ -44,7 +45,8 @@
                                                         </li>
                                                         <li class="nav-item">
                                                             <a href="#contact-information" data-bs-toggle="tab"
-                                                                data-toggle="tab" class="nav-link rounded-0">
+                                                                data-toggle="tab" class="nav-link rounded-0"
+                                                                id="tab_3" disabled>
                                                                 <i
                                                                     class="mdi mdi-card-account-details-outline font-18 align-middle me-1"></i>
                                                                 <span
@@ -53,7 +55,8 @@
                                                         </li>
                                                         <li class="nav-item">
                                                             <a href="#health_information" data-bs-toggle="tab"
-                                                                data-toggle="tab" class="nav-link rounded-0">
+                                                                data-toggle="tab" class="nav-link rounded-0"
+                                                                id="tab_3" disabled>
                                                                 <i
                                                                     class="mdi mdi-medical-bag font-18 align-middle me-1"></i>
                                                                 <span
@@ -62,7 +65,8 @@
                                                         </li>
                                                         <li class="nav-item">
                                                             <a href="#informed_consents" data-bs-toggle="tab"
-                                                                data-toggle="tab" class="nav-link rounded-0">
+                                                                data-toggle="tab" class="nav-link rounded-0"
+                                                                id="tab_4" disabled>
                                                                 <i
                                                                     class="mdi mdi-checkbox-marked-circle-outline font-18 align-middle me-1"></i>
                                                                 <span
@@ -144,7 +148,7 @@
                                                         <ul class="list-inline wizard mb-0">
                                                             <li class="next list-inline-item float-end">
                                                                 <a href="javascript:void(0);" class="btn btn-primary"
-                                                                    onclick="return verificar()">{{ __('Add More Info') }}
+                                                                    onclick="return verificar(2)">{{ __('Add More Info') }}
                                                                     <i class="mdi mdi-arrow-right ms-1"></i></a>
                                                             </li>
                                                         </ul>
@@ -152,10 +156,7 @@
 
                                                     <div class="tab-pane p-2" id="profile-tab">
                                                         <div class="row">
-                                                            <div id="mensaje" align="center">
-                                                                <h1>{{ __('Debe llenar el formulario anterior') }}</h1>
-                                                            </div>
-                                                            <div class="col-12" id="div_patient">
+                                                            <div class="col-12" id="div_2" hidden>
                                                                 <div class="row">
                                                                     @if (Auth::user()->hasRole('SuperAdmin'))
                                                                         <div class="col-lg-4 col-md-6 mb-2">
@@ -254,7 +255,7 @@
                                                                     <div class="col-12 mb-3">
                                                                         <label class="col-form-label"
                                                                             for="address">{{ __('Address') }}</label>
-                                                                        <textarea name="address" rows="3" class="form-control">{{ old('address') }}</textarea>
+                                                                        <textarea name="address" id="address" rows="3" class="form-control">{{ old('address') }}</textarea>
                                                                     </div>
                                                                 </div>
 
@@ -264,10 +265,11 @@
                                                             <li class="previous list-inline-item">
                                                                 <button type="button" class="btn btn-info"><i
                                                                         class="mdi mdi-arrow-left me-1"></i> Back
-                                                                    to Account</button>
+                                                                    to users</button>
                                                             </li>
                                                             <li class="next list-inline-item float-end">
-                                                                <button type="button" class="btn btn-primary">Add
+                                                                <button type="button" class="btn btn-primary"
+                                                                    onclick="return verificar(3)">Add
                                                                     More
                                                                     Info <i
                                                                         class="mdi mdi-arrow-right ms-1"></i></button>
@@ -277,7 +279,7 @@
 
                                                     <div class="tab-pane p-2" id="contact-information">
                                                         <div class="row">
-                                                            <div class="col-12">
+                                                            <div class="col-12" id="div_3" hidden>
                                                                 <div class="row">
                                                                     <div class="col-lg-4 col-md-6 mb-2">
                                                                         <label class="col-form-label"
@@ -312,10 +314,11 @@
                                                             <li class="previous list-inline-item">
                                                                 <button type="button" class="btn btn-info"><i
                                                                         class="mdi mdi-arrow-left me-1"></i> Back
-                                                                    to Account</button>
+                                                                    to general information</button>
                                                             </li>
                                                             <li class="next list-inline-item float-end">
-                                                                <button type="button" class="btn btn-primary">Add
+                                                                <button type="button" class="btn btn-primary"
+                                                                    onclick="return verificar(4)">Add
                                                                     More
                                                                     Info <i
                                                                         class="mdi mdi-arrow-right ms-1"></i></button>
@@ -323,7 +326,7 @@
                                                         </ul>
                                                     </div>
                                                     <div class="tab-pane p-2" id="health_information">
-                                                        <div class="col-12">
+                                                        <div class="col-12" id="div_4" hidden>
                                                             <div class="row">
                                                                 <div class="col-md-6 mb-2">
                                                                     <label class="col-form-label"
@@ -361,7 +364,8 @@
                                                                         to Account</button>
                                                                 </li>
                                                                 <li class="next list-inline-item float-end">
-                                                                    <button type="button" class="btn btn-primary">Add
+                                                                    <button type="button" class="btn btn-primary"
+                                                                        onclick="return verificar(5)">Add
                                                                         More
                                                                         Info <i
                                                                             class="mdi mdi-arrow-right ms-1"></i></button>

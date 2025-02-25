@@ -16,7 +16,7 @@
     --ct-theme-card-border-width: 0px;
 }
 html[data-menu-color="light"] {
-    --ct-menu-bg: #48cafd;
+    --ct-menu-bg: #ffffff;
     --ct-menu-item-color: #6c757d;
     --ct-menu-item-hover-color: #040c1c;
     --ct-menu-item-active-color: #040c1c;

@@ -65,8 +65,7 @@
                         <!-- Logo -->
                         <div class="card-header py-1 text-center bg-primary">
                             <a href="/">
-                                <span><img src="{{ asset('assets/images/logo.png') }}" alt="logo"
-                                        width="30%"></span>
+                                <span><img src="{{ asset('assets/images/logo.png') }}" alt="logo"></span>
                             </a>
                         </div>
 

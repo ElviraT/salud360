@@ -106,8 +106,8 @@ class PatientController extends Controller
             DB::commit();
             Toastr::success(__('Added successfully'), __('Patient') . ': ' . $request->input('name'));
         } catch (\Illuminate\Database\QueryException $e) {
-            dd($e);
             DB::rollBack();
+            dd($e);
             Toastr::error(__('An error occurred please try again'), 'Error');
         }
         return to_route('patients');

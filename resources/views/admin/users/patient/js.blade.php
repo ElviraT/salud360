@@ -31,7 +31,88 @@
             });
     });
 
-    function verificar() {
+    function verificar(tab) {
+        let valido = true;
+        if (tab === 2) { // Validar tab1 antes de pasar a tab2
+            if ($('#name').val() === '') {
+                toastr.warning('El nombre es requerido');
+                valido = false;
+            }
+            if ($('#email').val() === '') {
+                toastr.warning('El email es requerido');
+                valido = false;
+            }
+            if ($('#password').val() === '') {
+                toastr.warning('El contraseña es requerido');
+                valido = false;
+            }
+            if ($('#password-confirm').val() === '') {
+                toastr.warning('El confirmar contraseña es requerido');
+                valido = false;
+            }
+        }
+        if (tab === 3) { // Validar tab2 antes de pasar a tab3
+            if (document.getElementById('marital_id').value === '') {
+                toastr.warning('El estado civil es requerido');
+                valido = false;
+            }
+            if (document.getElementById('sexes_id').value === '') {
+                toastr.warning('El sexo es requerido');
+                valido = false;
+            }
+            if (document.getElementById('Date_of_birth').value === '') {
+                toastr.warning('La fecha de nacimiento es requerida');
+                valido = false;
+            }
+            if (document.getElementById('dni').value === '') {
+                toastr.warning('El DNI es requerido');
+                valido = false;
+            }
+            if (document.getElementById('phone').value === '') {
+                toastr.warning('El teléfono es requerido');
+                valido = false;
+            }
+            if (document.getElementById('address').value === '') {
+                toastr.warning('La dirección es requerida');
+                valido = false;
+            }
+        }
+        if (tab === 4) {
+            if (document.getElementById('namec').value === '') {
+                toastr.warning('El nombre del contacto es requerido');
+                valido = false;
+            }
+            if (document.getElementById('emailc').value === '') {
+                toastr.warning('El email del contacto es requerido');
+                valido = false;
+            }
+            if (document.getElementById('phonec').value === '') {
+                toastr.warning('El teléfono del contacto es requerido');
+                valido = false;
+            }
+            if (document.getElementById('addressc').value === '') {
+                toastr.warning('La dirección del contacto es requerido');
+                valido = false;
+            }
+        }
+        if (tab === 5) {
+            if (document.getElementById('blood_group').value === '') {
+                toastr.warning('El el grupo sanguineo es requerido');
+                valido = false;
+            }
+        }
+        if (tab === 6) {
+            valido = true
+        }
+        if (valido) {
+            console.log('#tab_' + tab)
+            // Ocultar tab actual y mostrar siguiente
+            $('#tab_' + tab).removeAttr("disabled");
+            $('#div_' + tab).removeAttr("hidden");
+        }
+    }
+
+    function verificar2() {
         var name = $('#name').val();
         var email = $('#email').val();
         var password = $('#password').val();
