@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="text-center">
-        <p class="text-muted mb-2">Enter your email address and password to access admin panel.
+        <p class="text-muted mb-2">{{ __('Enter your email address and password to access admin panel.') }}
         </p>
     </div>
 
@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class="mb-3 mb-0 text-center">
+        <div class="mb-1 text-center">
             <button type="submit" class="btn btn-primary">
                 {{ __('Login') }}
             </button>

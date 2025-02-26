@@ -42,14 +42,14 @@
                 toastr.warning('El email es requerido');
                 valido = false;
             }
-            if ($('#password').val() === '') {
-                toastr.warning('El contraseña es requerido');
-                valido = false;
-            }
-            if ($('#password-confirm').val() === '') {
-                toastr.warning('El confirmar contraseña es requerido');
-                valido = false;
-            }
+            // if ($('#password').val() === '') {
+            //     toastr.warning('El contraseña es requerido');
+            //     valido = false;
+            // }
+            // if ($('#password-confirm').val() === '') {
+            //     toastr.warning('El confirmar contraseña es requerido');
+            //     valido = false;
+            // }
         }
         if (tab === 3) { // Validar tab2 antes de pasar a tab3
             if (document.getElementById('marital_id').value === '') {
@@ -112,20 +112,6 @@
         }
     }
 
-    function verificar2() {
-        var name = $('#name').val();
-        var email = $('#email').val();
-        var password = $('#password').val();
-        var password2 = $('#password-confirm').val();
-
-        if (name == '' || email == '' || password == '' || password2 == '') {
-            // Mostrar una notificación de advertencia
-            toastr.warning('¡Debe llenar todos los campos!');
-        } else {
-            $('#mensaje').attr("hidden", "hidden");
-            $('#div_patient').removeAttr("hidden");
-        }
-    }
     $(document).on('show.bs.modal', '#modal_patient', function(e) {
         var modal = $(e.delegateTarget),
             data = $(e.relatedTarget).data();
@@ -145,17 +131,38 @@
             $('.title').text("@lang('Edit Patient')");
             modal.addClass('loading');
             $('.modal_registro_medical_id', modal).val(data.bsRecordId);
-            $.getJSON('../medicals/' + data.bsRecordId + '/edit', function(data) {
+            $.getJSON('../patients/' + data.bsRecordId + '/edit', function(data) {
                 var obj = data;
-                $('#user_id').val(obj.user_id).trigger('change.select2');
-                $('#clinic_id').val(obj.clinic_id).trigger('change.select2');
-                $('#speciality_id').val(obj.speciality_id).trigger('change.select2');
-                $('#created_by').val(obj.created_by).trigger('change.select2');
+                console.log(obj);
+                $('#name').val(obj[1].name); //.trigger('change.select2');
+                $('#email').val(obj[1].email);
+
+                $('#marital_id').val(obj[0].marital_id).trigger('change.select2');
+                $('#sexes_id').val(obj[0].sexes_id).trigger('change.select2');
                 $("#form-enviar").attr('action', data.bsAction);
                 $("#method").val('put');
-                $('#name', modal).val(obj.name);
-                $('#professional_license', modal).val(obj.professional_license);
-                $('#bio', modal).val(obj.bio);
+                $('#Date_of_birth', modal).val(obj[0].Date_of_birth);
+                $('#dni', modal).val(obj[0].dni);
+                $('#ocupation', modal).val(obj[0].ocupation);
+                $('#phone', modal).val(obj[0].phone);
+                $('#address', modal).val(obj[0].address);
+
+                $('#namec', modal).val(obj[2].name);
+                $('#emailc', modal).val(obj[2].email);
+                $('#phonec', modal).val(obj[2].phone);
+                $('#addressc', modal).val(obj[2].address);
+
+                $('#blood_group', modal).val(obj[3].blood_group);
+                $('#medical_condition', modal).val(obj[3].medical_condition);
+                $('#medication', modal).val(obj[3].medication);
+                $('#allergies', modal).val(obj[3].allergies);
+                if (obj[4].data_collection === 0) {
+                    $('#data_collection', modal).attr('checked', false);
+                }
+                if (obj[4].telemedicine === 0) {
+                    $('#telemedicine', modal).attr('checked', false);
+                }
+
 
                 modal.removeClass('loading');
             });

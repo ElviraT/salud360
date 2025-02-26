@@ -56,7 +56,7 @@
             </g>
         </svg>
     </div>
-    <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5 position-relative">
+    <div class="account-pages pt-2 pt-sm-5 pb-2 pb-sm-3 position-relative">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xxl-4 col-lg-5">
@@ -65,11 +65,12 @@
                         <!-- Logo -->
                         <div class="card-header py-1 text-center bg-primary">
                             <a href="/">
-                                <span><img src="{{ asset('assets/images/logo.png') }}" alt="logo"></span>
+                                <span><img src="{{ asset('assets/images/logo.png') }}" alt="logo"
+                                        width="50%"></span>
                             </a>
                         </div>
 
-                        <div class="card-body p-4">
+                        <div class="card-body p-3">
 
                             @yield('content')
 
@@ -77,7 +78,7 @@
                     </div>
                     <!-- end card -->
 
-                    <div class="row mt-1">
+                    <div class="row">
                         <div class="col-12 text-center">
                             <p class="text-muted">{{ __('Dont have an account?') }} <a href="{{ route('register') }}"
                                     class="text-muted ms-1"><b>{{ __('Sign Up') }}</b></a></p>
@@ -94,9 +95,10 @@
     <!-- end page -->
 
     <footer class="footer footer-alt">
+        <span>{{ env('APP_NAME', 'Laravel') }}</span>&nbsp;
         <script>
             document.write(new Date().getFullYear())
-        </script> © Gematechnology
+        </script> © &nbsp;<a href="https://gematechnology.tech" target="_blank">Gematechnology</a>
     </footer>
     <!-- Vendor js -->
     <script src="assets/js/vendor.min.js"></script>

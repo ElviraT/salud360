@@ -12,7 +12,7 @@
     --ct-menu-item-padding-x: 10px;
     --ct-menu-item-padding-y: 15px;
     --ct-menu-condensed-link-bg: #040c1c;
-    --ct-footer-height: 60px;
+    --ct-footer-height: 50px;
     --ct-theme-card-border-width: 0px;
 }
 html[data-menu-color="light"] {
@@ -4912,7 +4912,7 @@ fieldset:disabled .btn {
     --ct-card-inner-border-radius: calc(
         var(--ct-border-radius) - (var(--ct-theme-card-border-width))
     );
-    --ct-card-cap-padding-y: 1.125rem;
+    --ct-card-cap-padding-y: 0.5rem;
     --ct-card-cap-padding-x: 1.5rem;
     --ct-card-cap-bg: transparent;
     --ct-card-bg: var(--ct-secondary-bg);

@@ -57,7 +57,7 @@
             </g>
         </svg>
     </div>
-    <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5 position-relative">
+    <div class="account-pages pt-2 pt-sm-5 pb-2 pb-sm-3 position-relative">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
@@ -67,11 +67,11 @@
                         <div class="card-header py-1 text-center bg-primary">
                             <a href="/">
                                 <span><img src="{{ asset('assets/images/logo.png') }}" alt="logo"
-                                        width="20%"></span>
+                                        width="30%"></span>
                             </a>
                         </div>
 
-                        <div class="card-body p-4">
+                        <div class="card-body p-3">
 
                             @yield('content')
 
@@ -90,9 +90,10 @@
     <!-- end page -->
 
     <footer class="footer footer-alt">
+        <span>{{ env('APP_NAME', 'Laravel') }}</span>&nbsp;
         <script>
             document.write(new Date().getFullYear())
-        </script> © Gematechnology
+        </script> © &nbsp;<a href="https://gematechnology.tech" target="_blank">Gematechnology</a>
     </footer>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

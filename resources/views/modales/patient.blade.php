@@ -123,7 +123,7 @@
                                                                             class="col-form-label text-md-end">{{ __('Password') }}</label>
                                                                         <input id="password" type="password"
                                                                             class="form-control @error('password') is-invalid @enderror"
-                                                                            name="password" required
+                                                                            name="password"
                                                                             autocomplete="new-password">
 
                                                                         @error('password')
@@ -138,7 +138,7 @@
                                                                             class="col-form-label text-md-end">{{ __('Confirm Password') }}</label>
                                                                         <input id="password-confirm" type="password"
                                                                             class="form-control"
-                                                                            name="password_confirmation" required
+                                                                            name="password_confirmation"
                                                                             autocomplete="new-password">
                                                                     </div>
                                                                 </div>

@@ -38,7 +38,7 @@
             <li class="side-nav-title">{{ __('Menu') }}</li>
             @can('inicio')
                 <li class="side-nav-item">
-                    <a href="{{ route('inicio') }}" class="side-nav-link">
+                    <a href="{{ route('inicio') }}" class="side-nav-link" onclick="loading_show()">
                         <i class="uil-heartbeat"></i>
                         <span> {{ __('Dashboard') }} </span>
                     </a>
@@ -48,7 +48,7 @@
             @canany(['permissions.index', 'users.index', 'medicals.index'])
                 <li class="side-nav-item">
                     <a data-bs-toggle="collapse" href="#sidebarUsers" aria-expanded="false" aria-controls="sidebarUsers"
-                        class="side-nav-link">
+                        class="side-nav-link" onclick="loading_show()">
                         <i class="uil-users-alt"></i>
                         <span> {{ __('User Settings') }} </span>
                         <span class="menu-arrow"></span>
@@ -57,22 +57,23 @@
                         <ul class="side-nav-second-level">
                             @can('permissions.index')
                                 <li>
-                                    <a href="{{ route('permissions.index') }}"> {{ __('Roles & Permission') }}</a>
+                                    <a href="{{ route('permissions.index') }}" onclick="loading_show()">
+                                        {{ __('Roles & Permission') }}</a>
                                 </li>
                             @endcan
                             @can('users.index')
                                 <li>
-                                    <a href="{{ route('users.index') }}">{{ __('Users') }}</a>
+                                    <a href="{{ route('users.index') }}" onclick="loading_show()">{{ __('Users') }}</a>
                                 </li>
                             @endcan
                             @can('medicals.index')
                                 <li>
-                                    <a href="{{ route('medicals.index') }}">{{ __('Medicals') }}</a>
+                                    <a href="{{ route('medicals.index') }}" onclick="loading_show()">{{ __('Medicals') }}</a>
                                 </li>
                             @endcan
                             {{-- @can('patients') --}}
                             <li>
-                                <a href="{{ route('patients') }}">{{ __('Patients') }}</a>
+                                <a href="{{ route('patients') }}" onclick="loading_show()">{{ __('Patients') }}</a>
                             </li>
                             {{-- @endcan --}}
                         </ul>
@@ -81,7 +82,7 @@
             @endcanany
             @can('currencies.index')
                 <li class="side-nav-item">
-                    <a href="{{ route('currencies.index') }}" class="side-nav-link">
+                    <a href="{{ route('currencies.index') }}" class="side-nav-link" onclick="loading_show()">
                         <i class="uil-money-bill"></i>
                         <span> {{ __('Currency') }} </span>
                     </a>
@@ -89,7 +90,7 @@
             @endcan
             @can('banks.index')
                 <li class="side-nav-item">
-                    <a href="{{ route('banks.index') }}" class="side-nav-link">
+                    <a href="{{ route('banks.index') }}" class="side-nav-link" onclick="loading_show()">
                         <i class="uil-money-withdrawal"></i>
                         <span> {{ __('Banks') }} </span>
                     </a>
@@ -97,7 +98,7 @@
             @endcan
             @can('plans.index')
                 <li class="side-nav-item">
-                    <a href="{{ route('plans.index') }}" class="side-nav-link">
+                    <a href="{{ route('plans.index') }}" class="side-nav-link" onclick="loading_show()">
                         <i class="uil-file-check-alt"></i>
                         <span> {{ __('Plans') }} </span>
                     </a>
@@ -107,7 +108,7 @@
             <li class="side-nav-title">{{ __('Consultation') }}</li>
             @can('meeting')
                 <li class="side-nav-item">
-                    <a href="{{ route('meeting') }}" class="side-nav-link">
+                    <a href="{{ route('meeting') }}" class="side-nav-link" onclick="loading_show()">
                         <i class="uil-webcam"></i>
                         <span> {{ __('Meeting') }} </span>
                     </a>
@@ -116,7 +117,7 @@
             <li class="side-nav-title">{{ __('Reports') }}</li>
             @can('report.pagos')
                 <li class="side-nav-item">
-                    <a href="{{ route('report.pagos') }}" class="side-nav-link">
+                    <a href="{{ route('report.pagos') }}" class="side-nav-link" onclick="loading_show()">
                         <i class="uil-file"></i>
                         <span> {{ __('Payment Report') }} </span>
                     </a>

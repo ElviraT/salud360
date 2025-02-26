@@ -391,5 +391,7 @@
     "Delete Schedule": "Eliminar Horario",
     "Day": "Día",
     "Start Time": "Hora de Inicio",
-    "End Time": "Hora de Fin"
+    "End Time": "Hora de Fin",
+    "Enter your email address and password to access admin panel.": "Ingrese su dirección de correo electrónico y contraseña para acceder al panel de administración.",
+    "Sign Up":"Registrate"
 }

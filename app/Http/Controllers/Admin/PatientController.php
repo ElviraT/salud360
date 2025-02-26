@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Ramsey\Uuid\Type\Integer;
 
 class PatientController extends Controller
 {
@@ -107,7 +108,6 @@ class PatientController extends Controller
             Toastr::success(__('Added successfully'), __('Patient') . ': ' . $request->input('name'));
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
-            dd($e);
             Toastr::error(__('An error occurred please try again'), 'Error');
         }
         return to_route('patients');
@@ -124,9 +124,21 @@ class PatientController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
-        //
+        $patient = Patient::with(['user', 'contact', 'healthInformation', 'informedConsent'])->find($id);
+
+        if (!$patient) {
+            return response()->json(['message' => 'Paciente no encontrado'], 404);
+        }
+
+        return response()->json([
+            $patient,
+            $patient->user,
+            $patient->contact,
+            $patient->healthInformation,
+            $patient->informedConsent,
+        ]);
     }
 
     /**
@@ -134,14 +146,115 @@ class PatientController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $paciente = Patient::find($id);
+
+            if (!$paciente) {
+                DB::rollBack();
+                Toastr::error(__('Patient not found.'), 'Error');
+                return back()->withInput();
+            }
+
+            $userId = $paciente->user_id; // Obtiene el ID del usuario desde el paciente
+            $user = User::find($userId);
+
+            if (!$user) {
+                DB::rollBack();
+                Toastr::error(__('User not found.'), 'Error');
+                return back()->withInput();
+            }
+
+            $user->update([
+                'name' => $request['name'],
+                'email' => $request['email'],
+            ]);
+
+
+            $paciente->update([
+                'marital_id' => $request['marital_id'],
+                'sexes_id' => $request['sexes_id'],
+                'Date_of_birth' => $request['Date_of_birth'],
+                'dni' => $request['dni'],
+                'ocupation' => $request['ocupation'],
+                'phone' => $request['phone'],
+                'address' => $request['address'],
+            ]);
+
+            Contact::where('patient_id', $id)->update([
+                'name' => $request['namec'],
+                'email' => $request['emailc'],
+                'phone' => $request['phonec'],
+                'address' => $request['addressc'],
+            ]);
+
+            HealthInformation::where('patient_id', $id)->update([
+                'blood_group' => $request['blood_group'],
+                'allergies' => $request['allergies'],
+                'medical_condition' => $request['medical_condition'],
+                'medication' => $request['medication'],
+            ]);
+
+            $telemedicine = $request['telemedicine'] === 'on' ? 1 : 0;
+            $data_collection = $request['data_collection'] === 'on' ? 1 : 0;
+
+            InformedConsent::where('patient_id', $id)->update([
+                'telemedicine' => $telemedicine,
+                'data_collection' => $data_collection,
+            ]);
+
+            DB::commit();
+            Toastr::success(__('Updated successfully'), __('Patient') . ': ' . $request->input('name'));
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            dd($e);
+            Toastr::error(__('An error occurred please try again'), 'Error');
+        }
+        return to_route('patients');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $paciente = Patient::find($id);
+
+            if (!$paciente) {
+                DB::rollBack();
+                Toastr::error(__('Patient not found.'), 'Error');
+                return back();
+            }
+
+            $usuario = User::find($paciente->user_id);
+
+            if (!$usuario) {
+                DB::rollBack();
+                Toastr::error(__('User not found.'), 'Error');
+                return back();
+            }
+
+            // Eliminar las relaciones
+            Contact::where('patient_id', $id)->delete();
+            HealthInformation::where('patient_id', $id)->delete();
+            InformedConsent::where('patient_id', $id)->delete();
+            DB::table('model_has_roles')->where('model_id', $usuario->id)->delete();
+
+            // Eliminar el paciente y el usuario
+            $paciente->delete();
+            $usuario->delete();
+
+            DB::commit();
+            Toastr::success(__('Patient and user deleted successfully.'), __('Success'));
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            Toastr::error(__('An error occurred while deleting.'), 'Error');
+        }
+
+        return back();
     }
 }

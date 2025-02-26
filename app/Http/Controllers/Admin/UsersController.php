@@ -31,32 +31,30 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
-        if (empty($request['avatar'])) {
-            $foto = '';
-        } else {
-            $foto = $this->uploadArchive($request['avatar'], 'avatar/');
-        }
+        $foto = $request->filled('avatar') ? $this->uploadArchive($request->file('avatar'), 'avatar/') : '';
 
         try {
-            $cliente = User::where('id', $request['created_by'])->first();
+            $cliente = User::findOrFail($request->input('created_by'));
+
             $data = [
-                'name' => $request['name'],
-                'email' => $request['email'],
-                'password' => Hash::make($request['password']),
-                'created_by' => $request['created_by'],
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'created_by' => $request->input('created_by'),
                 'avatar' => $foto,
-                'plan_id' => $cliente['plan_id'],
-                'plan_expires_at' => $cliente['plan_expires_at'],
+                'plan_id' => $cliente->plan_id,
+                'plan_expires_at' => $cliente->plan_expires_at,
                 'active' => 1,
-
             ];
-            $user = User::create($data);
-            $user->assignRole($request['roles']);
 
-            Toastr::success(__('added successfully'),  __('User') . ': ' . $request->input('name'));
+            $user = User::create($data);
+            $user->assignRole($request->input('roles'));
+
+            Toastr::success(__('added successfully'), __('User') . ': ' . $request->input('name'));
         } catch (\Illuminate\Database\QueryException $e) {
-            Toastr::error(__('An error occurred please try again'), 'error');
+            Toastr::error(__('An error occurred please try again' . $e->getMessage()), 'error');
         }
+
         return to_route('users.index');
     }
 
@@ -68,38 +66,36 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
-        if (empty($request['avatar'])) {
-            $foto = '';
-        } else {
-            $foto = $this->uploadArchive($request['avatar'], 'avatar/');
-        }
 
         $data = [
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'created_by' => $request['created_by'],
-            'avatar' => $foto,
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'created_by' => $request->input('created_by'),
             'active' => 1,
-
         ];
-        if (!empty($data['password'])) {
-            $data['password'] = $data['password'];
-        } else {
-            $data = Arr::except($data, array('password'));
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->input('password'));
         }
-        $resultado = array_merge($data);
+
+        if ($request->filled('avatar')) {
+            $data['avatar'] = $this->uploadArchive($request->file('avatar'), 'avatar/');
+        }
+
         try {
             $user = User::find($id);
-            $user->update($resultado);
-            if ($request['roles'] != '') {
+            $user->update($data);
+
+            if ($request->filled('roles')) {
                 DB::table('model_has_roles')->where('model_id', $id)->delete();
                 $user->assignRole($request->input('roles'));
             }
-            Toastr::success(__('Updated registration'),  __('User') . ': ' . $request->input('name'));
+
+            Toastr::success(__('Updated registration'), __('User') . ': ' . $request->input('name'));
         } catch (\Illuminate\Database\QueryException $e) {
             Toastr::error(__('An error occurred please try again'), 'error');
         }
+
         return to_route('users.index');
     }
 

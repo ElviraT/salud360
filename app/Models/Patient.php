@@ -26,4 +26,17 @@ class Patient extends Model
     {
         return $this->belongsTo(MaritalStatus::class);
     }
+
+    public function contact()
+    {
+        return $this->belongsTo(Contact::class, 'id', 'patient_id');
+    }
+    public function healthInformation()
+    {
+        return $this->belongsTo(HealthInformation::class, 'id', 'patient_id');
+    }
+    public function informedConsent()
+    {
+        return $this->belongsTo(InformedConsent::class, 'id', 'patient_id');
+    }
 }

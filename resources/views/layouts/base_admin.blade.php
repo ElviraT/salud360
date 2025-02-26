@@ -41,6 +41,7 @@
         type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.loadingModal.css') }}">
 
     @yield('styles')
 
@@ -180,6 +181,7 @@
 
     <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.loadingModal.js') }}"></script>
     @include('layouts.js.function')
     {!! Toastr::message() !!}
     @yield('script')

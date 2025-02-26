@@ -82,8 +82,8 @@
     </div>
 @endsection
 @section('modal')
-    @include('modales.patient')
     @include('modales.eliminar')
+    @include('modales.patient')
 @endsection
 @section('script')
     @include('admin.users.patient.js')

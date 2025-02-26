@@ -25,7 +25,6 @@
             $('.modal_registro_plan_id', modal).val(data.bsRecordId);
             $.getJSON('plans/' + data.bsRecordId + '/edit', function(data) {
                 var obj = data[0];
-                console.log(obj);
                 $("#form-enviar").attr('action', data.bsAction);
                 $("#method").val('put');
                 $('#name', modal).val(obj.name);
