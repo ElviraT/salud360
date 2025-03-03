@@ -208,7 +208,6 @@ class PatientController extends Controller
             Toastr::success(__('Updated successfully'), __('Patient') . ': ' . $request->input('name'));
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
-            dd($e);
             Toastr::error(__('An error occurred please try again'), 'Error');
         }
         return to_route('patients');

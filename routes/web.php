@@ -14,9 +14,11 @@ use App\Http\Controllers\Admin\registroController;
 use App\Http\Controllers\Admin\Reportes\ReportePagosController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ScheduleController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\SpecialityController;
 use App\Http\Middleware\CheckPlan;
 use App\Http\Middleware\VisitCounterMiddleware;
 use Illuminate\Support\Facades\Artisan;
@@ -88,9 +90,22 @@ Route::group(['middleware' => ['auth']], function () {
     // USUARIOS FAMILIARES PACIENTES
     Route::get('/patients/family', [PatientFamilyController::class, 'index'])->name('patients.family')->middleware(CheckPlan::class);
     Route::post('/patients/family/store', [PatientFamilyController::class, 'store'])->name('patients.family.store')->middleware(CheckPlan::class);
-    Route::get('/patients/family/{patient}/edit', [PatientFamilyController::class, 'edit'])->name('patients.family.edit')->middleware(CheckPlan::class);
-    Route::put('/patients/family/update/{patient}', [PatientFamilyController::class, 'update'])->name('patients.family.update')->middleware(CheckPlan::class);
-    Route::delete('/patients/family/destroy/{patient}', [PatientFamilyController::class, 'destroy'])->name('patients.family.destroy')->middleware(CheckPlan::class);
+    Route::get('/patients/family/{family}/edit', [PatientFamilyController::class, 'edit'])->name('patients.family.edit')->middleware(CheckPlan::class);
+    Route::put('/patients/family/update/{family}', [PatientFamilyController::class, 'update'])->name('patients.family.update')->middleware(CheckPlan::class);
+    Route::delete('/patients/family/destroy/{family}', [PatientFamilyController::class, 'destroy'])->name('patients.family.destroy')->middleware(CheckPlan::class);
+    //SERVICIOS
+    Route::get('/services', [ServiceController::class, 'index'])->name('services');
+    Route::post('/services/store', [ServiceController::class, 'store'])->name('services.store');
+    Route::get('/services/{service}/edit', [ServiceController::class, 'edit'])->name('services.edit');
+    Route::put('/services/update/{service}', [ServiceController::class, 'update'])->name('services.update');
+    Route::delete('/services/destroy/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
+    //ESPECIALIDAD
+    Route::get('/specialities', [SpecialityController::class, 'index'])->name('specialities');
+    Route::post('/specialities/store', [SpecialityController::class, 'store'])->name('specialities.store');
+    Route::get('/specialities/{speciality}/edit', [SpecialityController::class, 'edit'])->name('specialities.edit');
+    Route::put('/specialities/update/{speciality}', [SpecialityController::class, 'update'])->name('specialities.update');
+    Route::delete('/specialities/destroy/{speciality}', [SpecialityController::class, 'destroy'])->name('specialities.destroy');
+
     // CRUD PLANS
     Route::get('/plans', [PlanController::class, 'index'])->name('plans.index');
     Route::post('/plans/store', [PlanController::class, 'store'])->name('plans.store');

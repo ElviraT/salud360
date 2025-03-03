@@ -170,4 +170,52 @@
             $('.title').text("@lang('Add Patient')");
         }
     });
+
+    // MODAL FAMILY
+    $(document).on('show.bs.modal', '#modal_family', function(e) {
+        var modal = $(e.delegateTarget),
+            data = $(e.relatedTarget).data();
+        modal.addClass('loading');
+        $("#form-enviar").attr('action', data.bsAction);
+        $("#method").val('post');
+        $("#relationship_id, #sexes_id").select2({
+            dropdownParent: "#modal_family"
+        });
+        $("#Date_of_birth").datepicker({
+            format: 'yyyy-mm-dd',
+            dropdownParent: "#modal_family"
+
+        });
+        modal.removeClass('loading');
+        if (data.bsRecordId != undefined) {
+            $('.title').text("@lang('Edit Patient Family')");
+            modal.addClass('loading');
+            $('.modal_registro_medical_id', modal).val(data.bsRecordId);
+            $.getJSON('../patients/family/' + data.bsRecordId + '/edit', function(data) {
+                var obj = data;
+                $('#sexes_id').val(obj.sexes_id).trigger('change.select2');
+                $('#relationship_id').val(obj.relationship_id).trigger('change.select2');
+                $("#form-enviar").attr('action', data.bsAction);
+                $("#method").val('put');
+                $('#name', modal).val(obj.name);
+                $('#dni', modal).val(obj.dni);
+                $('#phone_number', modal).val(obj.phone_number);
+                $('#email', modal).val(obj.email);
+                $('#Date_of_birth', modal).val(obj.Date_of_birth);
+                modal.removeClass('loading');
+            });
+        } else {
+            $('.title').text("@lang('Add Patient Family')");
+        }
+    });
+    $(document).on('hidden.bs.modal', '#modal_family', function(e) {
+        $('#sexes_id').val('').trigger('change.select2');
+        $('#relationship_id').val('').trigger('change.select2');
+        $("#method").val('post');
+        $('#name').val('');
+        $('#dni').val('');
+        $('#phone_number').val('');
+        $('#email').val('');
+        $('#Date_of_birth').val('');
+    });
 </script>

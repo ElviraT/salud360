@@ -48,7 +48,7 @@
             @canany(['permissions.index', 'users.index', 'medicals.index'])
                 <li class="side-nav-item">
                     <a data-bs-toggle="collapse" href="#sidebarUsers" aria-expanded="false" aria-controls="sidebarUsers"
-                        class="side-nav-link" onclick="loading_show()">
+                        class="side-nav-link">
                         <i class="uil-users-alt"></i>
                         <span> {{ __('User Settings') }} </span>
                         <span class="menu-arrow"></span>
@@ -106,14 +106,41 @@
             @endcan
 
             <li class="side-nav-title">{{ __('Consultation') }}</li>
-            @can('meeting')
+            @canany(['meeting', 'users.index', 'medicals.index'])
                 <li class="side-nav-item">
-                    <a href="{{ route('meeting') }}" class="side-nav-link" onclick="loading_show()">
-                        <i class="uil-webcam"></i>
-                        <span> {{ __('Meeting') }} </span>
+                    <a data-bs-toggle="collapse" href="#sidebarMedical" aria-expanded="false" aria-controls="sidebarUsers"
+                        class="side-nav-link">
+                        <i class="uil-heart-rate"></i>
+                        <span> {{ __('Medical Management') }} </span>
+                        <span class="menu-arrow"></span>
                     </a>
+                    <div class="collapse" id="sidebarMedical">
+                        <ul class="side-nav-second-level">
+                            @can('specialities')
+                                <li>
+                                    <a href="{{ route('specialities') }}" onclick=" loading_show();">
+                                        @lang('Specialities')
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('services')
+                                <li>
+                                    <a href="{{ route('services') }}" onclick=" loading_show();">
+                                        @lang('Services')
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('meeting')
+                                <li class="side-nav-item">
+                                    <a href="{{ route('meeting') }}" onclick="loading_show()">
+                                        {{ __('Online Consultation') }}
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </div>
                 </li>
-            @endcan
+            @endcanany
             <li class="side-nav-title">{{ __('Reports') }}</li>
             @can('report.pagos')
                 <li class="side-nav-item">

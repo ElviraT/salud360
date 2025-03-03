@@ -78,7 +78,7 @@
                   <a class="nav-link dropdown-toggle arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#"
                       role="button" aria-haspopup="false" aria-expanded="false">
                       <span class="account-user-avatar">
-                          <img src="{{ auth()->user()->avatar ? 'storage/' . auth()->user()->avatar : 'assets/images/avatar.png' }}"
+                          <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('assets/images/avatar.png') }}"
                               alt="user-image" width="32" class="rounded-circle">
                       </span>
                       <span class="d-lg-flex flex-column gap-1 d-none">
