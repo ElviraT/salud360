@@ -10,13 +10,13 @@ use App\Models\MaritalStatus;
 use App\Models\Patient;
 use App\Models\Role;
 use App\Models\Sex;
+use App\Models\TypesBackground;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Ramsey\Uuid\Type\Integer;
 
 class PatientController extends Controller
 {
@@ -34,9 +34,10 @@ class PatientController extends Controller
             $marital = MaritalStatus::all();
             $users = '';
         }
+        $tiposAntecedentes = TypesBackground::all();
         $roles = Role::where('name', '<>', 'SuperAdmin')->get();
         $sexes = Sex::all();
-        return view('admin.users.patient.index', compact('patients', 'roles', 'marital', 'sexes', 'users'));
+        return view('admin.users.patient.index', compact('patients', 'roles', 'marital', 'sexes', 'users', 'tiposAntecedentes'));
     }
 
 

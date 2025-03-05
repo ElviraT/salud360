@@ -26,4 +26,9 @@ class PatientFamily extends Model
     {
         return $this->belongsTo(Relationship::class, 'relationship_id');
     }
+
+    public function antecedentes()
+    {
+        return $this->morphMany(MedicalHistory::class, 'paciente');
+    }
 }

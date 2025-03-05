@@ -5,11 +5,11 @@
             <div class="content-page-header">
                 <h2>{{ __('Patients') }}</h2>
                 <div class="col-12" align="right">
-                    {{-- @can('patients.store') --}}
-                    <a class="btn btn-primary" href="#" data-bs-toggle="modal"
-                        data-bs-action="{{ route('patients.store') }}" data-bs-target="#modal_patient"><i
-                            class="uil-plus-circle"></i>&nbsp;{{ __('Add Patient') }}</a>
-                    {{-- @endcan --}}
+                    @can('patients.store')
+                        <a class="btn btn-primary" href="#" data-bs-toggle="modal"
+                            data-bs-action="{{ route('patients.store') }}" data-bs-target="#modal_patient"><i
+                                class="uil-plus-circle"></i>&nbsp;{{ __('Add Patient') }}</a>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -46,29 +46,37 @@
                                             </td>
 
                                             <td>
-                                                {{-- @can('patients.edit') --}}
-                                                <a href="#" type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#modal_patient" class="btn btn-success me-2"
-                                                    data-bs-record-id="{{ $item->id }}"
-                                                    data-bs-action="{{ route('patients.update', $item) }}">
-                                                    <i class="uil-edit-alt"></i>
-                                                    {{ __('Edit Patient') }}
-                                                </a>
-                                                {{-- @endcan --}}
+                                                @can('patients.edit')
+                                                    <a href="#" type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#modal_patient" class="btn btn-success btn-sm me-2"
+                                                        data-bs-record-id="{{ $item->id }}"
+                                                        data-bs-action="{{ route('patients.update', $item) }}">
+                                                        <i class="uil-edit-alt"></i>
+                                                        {{ __('Edit Patient') }}
+                                                    </a>
+                                                @endcan
+                                                @can('patients.family')
+                                                    <a href="{{ route('patients.family', ['id' => $item->id]) }}"
+                                                        class="btn btn-info btn-sm me-2"><i
+                                                            class="uil-user-plus"></i>@lang('Family')</a>
+                                                @endcan
                                                 {{-- @can('patients.family') --}}
-                                                <a href="{{ route('patients.family', ['id' => $item->id]) }}"
-                                                    class="btn btn-info me-2"><i
-                                                        class="uil-user-plus"></i>@lang('Family')</a>
-                                                {{-- @endcan --}}
-                                                {{-- @can('patients.destroy') --}}
-                                                <a class="btn btn-danger me-2" data-bs-toggle="modal"
-                                                    data-bs-target="#confirm-delete"
+                                                <a href="#" type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#modal_history" class="btn btn-warning btn-sm me-2"
                                                     data-bs-record-id="{{ $item->id }}"
-                                                    data-bs-record-title="{{ 'El paciente ' }}{{ $item->user->name }}&nbsp;{{ $item->user->last_name }}"
-                                                    data-bs-action="{{ route('patients.destroy', $item) }}"
-                                                    title="{{ __('Delete patients') }}"><i
-                                                        class="uil-trash-alt"></i>@lang('Delete')</a>
+                                                    data-bs-record-idtype='App\Models\Patient'
+                                                    data-bs-action="{{ route('patients.history', ['id' => $item->id]) }}"><i
+                                                        class=" uil-file-medical-alt"></i>@lang('Medical History')</a>
                                                 {{-- @endcan --}}
+                                                @can('patients.destroy')
+                                                    <a class="btn btn-danger btn-sm me-2" data-bs-toggle="modal"
+                                                        data-bs-target="#confirm-delete"
+                                                        data-bs-record-id="{{ $item->id }}"
+                                                        data-bs-record-title="{{ 'El paciente ' }}{{ $item->user->name }}&nbsp;{{ $item->user->last_name }}"
+                                                        data-bs-action="{{ route('patients.destroy', $item) }}"
+                                                        title="{{ __('Delete patients') }}"><i
+                                                            class="uil-trash-alt"></i>@lang('Delete')</a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach
@@ -83,6 +91,7 @@
 @endsection
 @section('modal')
     @include('modales.eliminar')
+    @include('modales.history')
     @include('modales.patient')
 @endsection
 @section('script')

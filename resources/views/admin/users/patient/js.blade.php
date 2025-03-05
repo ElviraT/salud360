@@ -218,4 +218,42 @@
         $('#email').val('');
         $('#Date_of_birth').val('');
     });
+
+    // MODAL HISTORY
+    $(document).on('show.bs.modal', '#modal_history', function(e) {
+        var modal = $(e.delegateTarget),
+            data = $(e.relatedTarget).data();
+        modal.addClass('loading');
+        $("#form-enviar").attr('action', data.bsAction);
+        $("#method").val('post');
+        $("#type_id").select2({
+            dropdownParent: "#modal_history"
+        });
+        $("#diagnosis_date").datepicker({
+            format: 'yyyy-mm-dd',
+            dropdownParent: "#modal_history"
+        });
+        $('#patient_type', modal).val(data.bsRecordIdtype);
+        $('#patient_id', modal).val(data.bsRecordId);
+        modal.removeClass('loading');
+        if (data.bsRecordId != undefined) {
+            $('.title').text("@lang('Edit Patient History')");
+            modal.addClass('loading');
+            $('.modal_registro_medical_id', modal).val(data.bsRecordId);
+            $.getJSON('../patients/history/' + data.bsRecordId + '/edit', function(data) {
+                var obj = data;
+                $('#type_id').val(obj.type_id).trigger('change.select2');
+                $("#form-enviar").attr('action', data.bsAction);
+                $("#method").val('put');
+                $('#description', modal).val(obj.description);
+                $('#diagnosis_date', modal).val(obj.diagnosis_date);
+                $('#related_medications', modal).val(obj.related_medications);
+                $('#related_allergies', modal).val(obj.related_allergies);
+                $('#notes', modal).val(obj.notes);
+                modal.removeClass('loading');
+            });
+        } else {
+            $('.title').text("@lang('Add Patient History')");
+        }
+    });
 </script>

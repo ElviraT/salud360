@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\MedicalController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\MeetingController;
@@ -93,6 +94,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/patients/family/{family}/edit', [PatientFamilyController::class, 'edit'])->name('patients.family.edit')->middleware(CheckPlan::class);
     Route::put('/patients/family/update/{family}', [PatientFamilyController::class, 'update'])->name('patients.family.update')->middleware(CheckPlan::class);
     Route::delete('/patients/family/destroy/{family}', [PatientFamilyController::class, 'destroy'])->name('patients.family.destroy')->middleware(CheckPlan::class);
+
+    Route::post('/patients/history', [HistoryController::class, 'store'])->name('patients.history')->middleware(CheckPlan::class);
+
+
     //SERVICIOS
     Route::get('/services', [ServiceController::class, 'index'])->name('services');
     Route::post('/services/store', [ServiceController::class, 'store'])->name('services.store');

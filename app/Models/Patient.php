@@ -39,4 +39,9 @@ class Patient extends Model
     {
         return $this->belongsTo(InformedConsent::class, 'id', 'patient_id');
     }
+
+    public function antecedentes()
+    {
+        return $this->morphMany(MedicalHistory::class, 'paciente');
+    }
 }
