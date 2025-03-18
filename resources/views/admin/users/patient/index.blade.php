@@ -24,7 +24,8 @@
                                     <tr>
                                         <th>@lang('Name')</th>
                                         <th>@lang('Mobile Number')</th>
-                                        <th>@lang('Marital State') </th>
+                                        <th>@lang('Marital Status') </th>
+
                                         <th>@lang('Created on')</th>
                                         <th>@lang('Status')</th>
                                         <th Class="no-sort">@lang('Actions')</th>
@@ -38,7 +39,7 @@
                                             <td>{{ $item->marital->name }}</td>
                                             <td>{{ $item->created_at->format('j F, Y, g:i A') }}</td>
                                             <td>
-                                                @if ($item->active == 1)
+                                                @if ($item->active === 1)
                                                     {{ __('Active') }}
                                                 @else
                                                     {{ __('Inactive') }}
@@ -47,10 +48,8 @@
 
                                             <td>
                                                 @can('patients.edit')
-                                                    <a href="#" type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#modal_patient" class="btn btn-success btn-sm me-2"
-                                                        data-bs-record-id="{{ $item->id }}"
-                                                        data-bs-action="{{ route('patients.update', $item) }}">
+                                                    <a href="{{ route('patients.edit', $item) }}" type="button"
+                                                        class="btn btn-success btn-sm me-2">
                                                         <i class="uil-edit-alt"></i>
                                                         {{ __('Edit Patient') }}
                                                     </a>
@@ -61,12 +60,12 @@
                                                             class="uil-user-plus"></i>@lang('Family')</a>
                                                 @endcan
                                                 {{-- @can('patients.family') --}}
-                                                <a href="#" type="button" data-bs-toggle="modal"
+                                                {{-- <a href="#" type="button" data-bs-toggle="modal"
                                                     data-bs-target="#modal_history" class="btn btn-warning btn-sm me-2"
                                                     data-bs-record-id="{{ $item->id }}"
                                                     data-bs-record-idtype='App\Models\Patient'
                                                     data-bs-action="{{ route('patients.history', ['id' => $item->id]) }}"><i
-                                                        class=" uil-file-medical-alt"></i>@lang('Medical History')</a>
+                                                        class=" uil-file-medical-alt"></i>@lang('Medical History')</a> --}}
                                                 {{-- @endcan --}}
                                                 @can('patients.destroy')
                                                     <a class="btn btn-danger btn-sm me-2" data-bs-toggle="modal"
@@ -90,9 +89,9 @@
     </div>
 @endsection
 @section('modal')
-    @include('modales.eliminar')
-    @include('modales.history')
     @include('modales.patient')
+    @include('modales.eliminar')
+    {{-- @include('modales.history') --}}
 @endsection
 @section('script')
     @include('admin.users.patient.js')

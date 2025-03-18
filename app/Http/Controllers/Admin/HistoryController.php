@@ -7,6 +7,7 @@ use App\Models\MedicalHistory;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 
 class HistoryController extends Controller
 {
@@ -22,16 +23,18 @@ class HistoryController extends Controller
             'patient_type' => 'required|string',
         ]);
         try {
-            $antecedente = new MedicalHistory();
-            $antecedente->patient_id = $request->patient_id;
-            $antecedente->patient_type = $request->patient_type;
-            $antecedente->type_id = $request->type_id;
-            $antecedente->description = Crypt::encryptString($request->description);
-            $antecedente->diagnosis_date = $request->diagnosis_date;
-            $antecedente->related_medications = $request->related_medications;
-            $antecedente->related_allergies = $request->related_allergies;
-            $antecedente->notes = Crypt::encryptString($request->notes);
-            $antecedente->save();
+            DB::transaction(function () use ($request) {
+                $antecedente = new MedicalHistory();
+                $antecedente->patient_id = $request->patient_id;
+                $antecedente->patient_type = $request->patient_type;
+                $antecedente->type_id = $request->type_id;
+                $antecedente->description = Crypt::encryptString($request->description);
+                $antecedente->diagnosis_date = $request->diagnosis_date;
+                $antecedente->related_medications = $request->related_medications;
+                $antecedente->related_allergies = $request->related_allergies;
+                $antecedente->notes = Crypt::encryptString($request->notes);
+                $antecedente->save();
+            });
             Toastr::success(__('Added successfully'), __('Medical History'));
         } catch (\Illuminate\Database\QueryException $e) {
             Toastr::error(__('An error occurred please try again'), 'error');

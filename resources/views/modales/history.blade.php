@@ -19,7 +19,8 @@
                     <input type="hidden" id="patient_id" name="patient_id" value="" />
                     <div class="row">
                         <div class="form-group mb-3">
-                            <label for="type_id">Tipo de Antecedente:</label>
+                            <label for="type_id">Tipo de Historia Médica:</label>
+
                             <select name="type_id" id="type_id" class="select2 form-control" data-toggle="select2">
                                 @foreach ($tiposAntecedentes as $tipo)
                                     <option value="{{ $tipo->id }}">{{ $tipo->name }}</option>
@@ -45,13 +46,15 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="related_medications">Medicamentos Relacionados:</label>
+                            <label for="related_medications">Medicamentos Asociados:</label>
+
                             <input type="text" name="related_medications" id="related_medications"
                                 class="form-control">
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="related_allergies">Alergias Relacionadas:</label>
+                            <label for="related_allergies">Alergias Asociadas:</label>
+
                             <input type="text" name="related_allergies" id="related_allergies" class="form-control">
                         </div>
 
@@ -72,4 +75,3 @@
             </form>
         </div>
     </div>
-</div>

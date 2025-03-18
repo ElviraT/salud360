@@ -14,7 +14,6 @@
             $('.modal_registro_user_id', modal).val(data.bsRecordId);
             $.getJSON('../users/' + data.bsRecordId + '/edit', function(data) {
                 var obj = data;
-                console.log(obj);
                 var url = "{{ asset(Storage::url(':img')) }}";
                 var avatar = url.replace(':img', obj.avatar);
                 $("#form-enviar").attr('action', data.bsAction);

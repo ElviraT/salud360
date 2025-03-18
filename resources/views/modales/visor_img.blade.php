@@ -16,8 +16,8 @@
                         <div class="table-responsive" id="iframe-container" hidden>
                         </div>
                         <div id="descargar" hidden>
-                            <img src="{{ asset('assets/img/icons/descarga.png') }}" alt="imagen-ticket"
-                                id="img_descarga" hidden>
+                            <img src="{{ asset('assets/images/icons/descarga.png') }}" alt="imagen-ticket"
+                                id="img_descarga" hidden class="img-fluid">
                             <hr>
                             <a href="#" id="btn-descargar" class="btn btn-success">@lang('Download')</a>
                         </div>

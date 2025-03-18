@@ -9,14 +9,12 @@ trait ArchivoTrait
     protected function uploadArchive($imagen, $carpeta)
     {
         if ($imagen != '') {
-
             $imageName = $imagen->getClientOriginalName();
             $path = 'public/' . $carpeta . $imageName; // Ajusta la ruta
             $ruta = $carpeta . $imageName;
             Storage::makeDirectory('public/' . $carpeta); // No necesitas permisos 0755
             $this->_deleteArchivo($path); // Si _deleteArchivo está en el Trait, usa $this->_deleteArchivo
             Storage::disk('local')->put($path, file_get_contents($imagen));
-            // dd($ruta);
             return $ruta;
         }
     }

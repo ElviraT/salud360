@@ -15,6 +15,7 @@
                 <div class="modal-body">
                     <input type="hidden" id="id" name="id" value=""
                         class="modal_registro_folder_id" />
+                    <input type="hidden" name="patient_id" id="patient_id">
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <div class="input-block mb-0">

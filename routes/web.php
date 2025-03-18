@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\folders\FileController;
+use App\Http\Controllers\Admin\folders\FolderController;
 use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\MedicalController;
 use App\Http\Controllers\HomeController;
@@ -67,6 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/users', [UsersController::class, 'index'])->name('users.index')->middleware(CheckPlan::class);
     Route::post('/users/store', [UsersController::class, 'store'])->name('users.store')->middleware(CheckPlan::class);
     Route::get('/users/{user}/edit', [UsersController::class, 'edit'])->name('users.edit')->middleware(CheckPlan::class);
+    Route::put('/users/update_foto/{user}', [PatientController::class, 'update_foto'])->name('users.update_foto')->middleware(CheckPlan::class);
     Route::put('/users/update/{user}', [UsersController::class, 'update'])->name('users.update')->middleware(CheckPlan::class);
     Route::delete('/users/destroy/{user}', [UsersController::class, 'destroy'])->name('users.destroy')->middleware(CheckPlan::class);
     // CRUD MEDICAL
@@ -137,6 +140,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/banks/update/{bank}', [BankController::class, 'update'])->name('banks.update')->middleware(CheckPlan::class);
     Route::delete('/banks/destroy/{bank}', [BankController::class, 'destroy'])->name('banks.destroy')->middleware(CheckPlan::class);
 
+
+    // CRUD FILE
+    Route::post('/folders/file', [FileController::class, 'upload'])->name('files.upload')->middleware(CheckPlan::class);
+    Route::delete('/files/destroy/{file}', [FileController::class, 'destroy'])->name('files.destroy')->middleware(CheckPlan::class);
     // REPORTES
     Route::get('/reportes-pagos', [ReportePagosController::class, 'index'])->name('report.pagos')->middleware(CheckPlan::class);
     Route::post('/actualizarStatus/{id}', [ReportePagosController::class, 'actualizarStatus'])->name('actualizar.status')->middleware(CheckPlan::class);

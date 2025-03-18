@@ -13,6 +13,8 @@
 
     <!-- Plugin css -->
     <link href="{{ asset('assets/vendor/daterangepicker/daterangepicker.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
+        type="text/css" />
     {{-- <link href="{{asset('assets/vendor/jsvectormap/jsvectormap.min.css')}}" rel="stylesheet" type="text/css"> --}}
 
     <!-- Theme Config Js -->
@@ -131,10 +133,15 @@
     <script src="{{ asset('assets/vendor/daterangepicker/moment.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/daterangepicker/daterangepicker.js') }}"></script>
 
+    <script src="{{ asset('assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+
     <!-- Charts js -->
     <script src="{{ asset('assets/vendor/chart.js/chart.umd.js') }}"></script>
     <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
-
+    <!-- plugin js -->
+    <script src="{{ asset('assets/vendor/dropzone/dropzone-min.js') }}"></script>
+    <!-- init js -->
+    <script src="{{ asset('assets/js/ui/component.fileupload.js') }}"></script>
     <!-- App js -->
     <script src="{{ asset('assets/js/app.min.js') }}"></script>
     <script>

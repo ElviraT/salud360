@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\File;
+use App\Models\Folder;
 use App\Models\HealthInformation;
 use App\Models\InformedConsent;
 use App\Models\MaritalStatus;
@@ -12,6 +14,7 @@ use App\Models\Role;
 use App\Models\Sex;
 use App\Models\TypesBackground;
 use App\Models\User;
+use App\Traits\ArchivoTrait;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +23,7 @@ use Illuminate\Support\Facades\Hash;
 
 class PatientController extends Controller
 {
+    use ArchivoTrait;
     /**
      * Display a listing of the resource.
      */
@@ -27,13 +31,12 @@ class PatientController extends Controller
     {
         if (Auth::user()->hasRole('SuperAdmin')) {
             $patients = Patient::all(); // Example relationships
-            $marital = MaritalStatus::all();
             $users = User::with('roles')->get(); // Example relationship
         } else {
             $patients = Patient::where('created_by', Auth::user()->id)->get();
-            $marital = MaritalStatus::all();
             $users = '';
         }
+        $marital = MaritalStatus::all();
         $tiposAntecedentes = TypesBackground::all();
         $roles = Role::where('name', '<>', 'SuperAdmin')->get();
         $sexes = Sex::all();
@@ -114,31 +117,26 @@ class PatientController extends Controller
         return to_route('patients');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(int $id)
     {
-        $patient = Patient::with(['user', 'contact', 'healthInformation', 'informedConsent'])->find($id);
-
+        $patient = Patient::with(['user', 'contact', 'healthInformation'])->find($id);
+        $marital = MaritalStatus::all();
+        $tiposAntecedentes = TypesBackground::all();
+        $sexes = Sex::all();
         if (!$patient) {
             return response()->json(['message' => 'Paciente no encontrado'], 404);
         }
-
-        return response()->json([
-            $patient,
-            $patient->user,
-            $patient->contact,
-            $patient->healthInformation,
-            $patient->informedConsent,
+        $files = File::where('patient_id', $id)->get();
+        return view('admin.users.patient.edit', [
+            'patient' => $patient,
+            'user' => $patient->user,
+            'contact' => $patient->contact,
+            'healthInformation' => $patient->healthInformation,
+            'marital' => $marital,
+            'tiposAntecedentes' => $tiposAntecedentes,
+            'sexes' => $sexes,
+            'files' => $files,
         ]);
     }
 
@@ -169,7 +167,6 @@ class PatientController extends Controller
 
             $user->update([
                 'name' => $request['name'],
-                'email' => $request['email'],
             ]);
 
 
@@ -211,7 +208,28 @@ class PatientController extends Controller
             DB::rollBack();
             Toastr::error(__('An error occurred please try again'), 'Error');
         }
-        return to_route('patients');
+        return to_route('patients.edit', $id);
+    }
+
+    public function update_foto(Request $request, string $id)
+    {
+        $data = [];
+        if ($request['avatar']) {
+            $data['avatar'] = $this->uploadArchive($request->file('avatar'), 'avatar/');
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $user = User::find($id);
+            $user->update($data);
+
+            DB::commit();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            Toastr::error(__('An error occurred please try again'), 'Error');
+        }
+        return redirect()->back();
     }
 
     /**

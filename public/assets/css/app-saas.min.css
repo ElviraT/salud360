@@ -160,17 +160,17 @@ html[data-bs-theme="dark"][data-topbar-color="light"] {
     --ct-body-font-size: 0.9rem;
     --ct-body-font-weight: 400;
     --ct-body-line-height: 1.5;
-    --ct-body-color: #6c757d;
+    --ct-body-color: #000000;
     --ct-body-color-rgb: 108, 117, 125;
     --ct-body-bg: #fafbfe;
     --ct-body-bg-rgb: 250, 251, 254;
-    --ct-emphasis-color: rgba(108, 117, 125, 0.75);
+    --ct-emphasis-color: rgba(0, 0, 0, 0.75);
     --ct-emphasis-color-rgb: 108, 117, 125;
     --ct-secondary-color: #8a969c;
     --ct-secondary-color-rgb: 138, 150, 156;
     --ct-secondary-bg: #fff;
     --ct-secondary-bg-rgb: 255, 255, 255;
-    --ct-tertiary-color: #6c757d;
+    --ct-tertiary-color: #000000;
     --ct-tertiary-color-rgb: 108, 117, 125;
     --ct-tertiary-bg: #f6f7fb;
     --ct-tertiary-bg-rgb: 246, 247, 251;
@@ -181,7 +181,7 @@ html[data-bs-theme="dark"][data-topbar-color="light"] {
     --ct-link-hover-color: #6169d0;
     --ct-link-hover-color-rgb: 97, 105, 208;
     --ct-code-color: #39afd1;
-    --ct-highlight-color: #6c757d;
+    --ct-highlight-color: #000000;
     --ct-highlight-bg: #fff3de;
     --ct-border-width: 1px;
     --ct-border-style: solid;
@@ -490,6 +490,7 @@ caption {
 th {
     text-align: inherit;
     text-align: -webkit-match-parent;
+    color: #fff !important;
 }
 tbody,
 td,
@@ -19511,6 +19512,7 @@ div.dataTables_scrollBody > table > :not(:first-child) {
     border-radius: 50%;
     font-size: 13px;
     line-height: 28px;
+    color: #000 !important
 }
 .datepicker table tr td .active.disabled:hover[disabled],
 .datepicker table tr td .active.disabled[disabled],
@@ -19558,7 +19560,7 @@ div.dataTables_scrollBody > table > :not(:first-child) {
 .datepicker table tr td.today:hover {
     background-color: #040c1c !important;
     background-image: none !important;
-    color: #fff;
+    color: #fff !important;
 }
 .datepicker table tr td span.focused,
 .datepicker table tr td span:hover,
@@ -20960,3 +20962,31 @@ body::-webkit-scrollbar-thumb {
     /* creates padding around scroll thumb */
     
 }
+.dash-widget .card-body .dash-widget-icon {
+    background-color: rgba(0, 197, 251, 0.2);
+    color: #12aa40;
+    align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  }
+.dash-widget-header .dash-widget-icon {
+color: #040c1c;
+display: inline-flex;
+font-size: 1.875rem;
+height: 4rem;
+text-align: center;
+width: 4rem;
+border-radius: 10px;
+align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+}
+.bg-2 {
+    background-color: #48cafd;
+}
+.bg-2 i {
+    color: #040c1c;
+  }
