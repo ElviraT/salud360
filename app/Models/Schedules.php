@@ -14,7 +14,8 @@ class Schedules extends Model
         'day_id',
         'doctor_id',
         'start_hour',
-        'end_hour'
+        'end_hour',
+        'type_consulting'
     ];
 
     public static function rules($id = null)

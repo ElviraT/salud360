@@ -21,7 +21,7 @@
                             <div class="card-body">
                                 <div class="form-groups-item">
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="col-lg-6 col-sm-12">
                                             <div class="input-block mb-3">
                                                 <label>@lang('Day')</label>
                                                 <select class="form-control form-small select" name="day_id"
@@ -33,14 +33,27 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="col-lg-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>@lang('Modalidad')</label>
+                                                <select class="form-control form-small select" name="type_consulting"
+                                                    id="type_consulting">
+                                                    <option>@lang('Select')</option>
+                                                    <option value="video">{{ __('Video') }}</option>
+                                                    <option value="domicile">{{ __('Domicile') }}</option>
+                                                    <option value="emergency">{{ __('Emergency') }}</option>
+                                                    <option value="Face">{{ __('Face') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-12">
                                             <div class="input-block mb-3">
                                                 <label>@lang('Start Time')</label>
                                                 <input type="time" name="start_hour" id="start_hour"
                                                     class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="col-lg-6 col-sm-12">
                                             <div class="input-block mb-3">
                                                 <label>@lang('End Time')</label>
                                                 <input type="time" name="end_hour" id="end_hour"

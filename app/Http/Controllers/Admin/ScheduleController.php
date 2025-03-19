@@ -54,7 +54,7 @@ class ScheduleController extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
             Toastr::error(__('An error occurred please try again'), 'error');
         }
-        return to_route('schedules');
+        return redirect()->back();
     }
     public function edit(string $id)
     {
@@ -73,7 +73,7 @@ class ScheduleController extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
             Toastr::error(__('An error occurred please try again'), 'error');
         }
-        return to_route('schedules');
+        return redirect()->back();
     }
 
     /**
@@ -83,6 +83,6 @@ class ScheduleController extends Controller
     {
         $shedule->delete();
         Toastr::success(__('Registration Successfully Disabled'), 'Disabled');
-        return to_route('schedules');
+        return redirect()->back();
     }
 }

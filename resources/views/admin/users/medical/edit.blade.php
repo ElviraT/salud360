@@ -4,10 +4,10 @@
     <div class="card p-3">
         <div class="page-header">
             <div class="content-page-header">
-                <h2>{{ __('Patient') . ': ' . $patient->user->name }}</h2>
+                <h2>{{ __('Medical') . ': ' . $medical->name }}</h2>
                 <div class="col-12" align="right">
-                    @can('patients.index')
-                        <a href="{{ route('patients') }}" class="btn btn-info"><i
+                    @can('medicals.index')
+                        <a href="{{ route('medicals.index') }}" class="btn btn-info"><i
                                 class=" uil-history-alt"></i>&nbsp;{{ __('Back') }}</a>
                     @endcan
                 </div>
@@ -18,7 +18,7 @@
             <div class="col-sm-12">
                 <div class="card-table">
                     <div class="card-body">
-                        <h4 class="header-title">{{ __('Patient Details') }}</h4>
+                        <h4 class="header-title">{{ __('Medical Details') }}</h4>
                         <div class="tab-content">
                             <div class="tab-pane show active" id="bordered-justified-tabs-preview">
                                 <ul class="nav nav-tabs nav-justified nav-bordered mb-3">
@@ -30,7 +30,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a href="#file-b2" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
-                                            <span class="d-none d-md-block">{{ __('Files & Docs') }}</span>
+                                            <span class="d-none d-md-block">{{ __('Schedules') }}</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -42,13 +42,13 @@
 
                                 <div class="tab-content">
                                     <div class="tab-pane show active" id="detail_basic-b2">
-                                        @include('admin.users.patient.folders.detail_basic')
+                                        @include('admin.users.medical.detail_basic')
                                     </div>
                                     <div class="tab-pane " id="file-b2">
-                                        @include('admin.users.patient.folders.file_doc')
+                                        @include('admin.users.medical.schedule')
                                     </div>
                                     <div class="tab-pane" id="settings-b2">
-                                        @include('admin.users.patient.folders.appointments')
+                                        {{-- @include('admin.users.patient.folders.appointments') --}}
                                     </div>
                                 </div>
                             </div> <!-- end preview-->
@@ -61,14 +61,9 @@
 @endsection
 @section('modal')
     @include('modales.eliminar')
-    @include('modales.visor_img')
-    @include('modales.upload')
+    @include('modales.schedule')
+    {{-- @include('modales.upload') --}}
 @endsection
 @section('script')
-    @include('admin.users.patient.folders.js')
-    <script>
-        $("#birth").datepicker({
-            format: 'yyyy-mm-dd',
-        });
-    </script>
+    @include('admin.users.medical.js')
 @endsection

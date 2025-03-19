@@ -87,7 +87,7 @@
         modal.addClass('loading');
         $("#form-enviar").attr('action', data.bsAction);
         $("#method").val('post');
-        $("#day_id").select2({
+        $("#day_id, #type_consulting").select2({
             dropdownParent: "#modal_schedule"
         });
         modal.removeClass('loading');
@@ -95,9 +95,13 @@
             $('.title').text("@lang('Edit Schedule')");
             modal.addClass('loading');
             $('.modal_registro_schedule_id', modal).val(data.bsRecordId);
-            $.getJSON('../schedules/' + data.bsRecordId + '/edit', function(data) {
+            url1 = "{{ route('schedules.edit', ':id') }}";
+            url = url1.replace(':id', data.bsRecordId);
+            $.getJSON(url, function(data) {
                 var obj = data;
+                console.log(obj);
                 $('#day_id').val(obj.day_id).trigger('change.select2');
+                $('#type_consulting').val(obj.type_consulting).trigger('change.select2');
                 $("#form-enviar").attr('action', data.bsAction);
                 $("#method").val('put');
                 $('#start_hour', modal).val(obj.start_hour);
@@ -111,6 +115,7 @@
     });
     $(document).on('hidden.bs.modal', '#modal_schedule', function(e) {
         $('#day_id').val('').trigger('change.select2');
+        $('#type_consulting').val('').trigger('change.select2');
         $("#method").val('post');
         $('#start_hour').val('');
         $('#end_hour').val('');
@@ -124,4 +129,42 @@
 
         });
     });
+    $(document).ready(function() {
+        "use strict";
+        $("#schedule").DataTable({
+            paging: !1,
+            language: {
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "zeroRecords": "No hay registros",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                "infoEmpty": "No hay registros",
+                "infoFiltered": "",
+                "search": "Buscar",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "emptyTable": "No hay datos disponibles en la tabla",
+                "infoFiltered": "",
+                "zeroRecords": "No hay registros",
+                "aria": {
+                    "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                paginate: {
+                    previous: "<i class='mdi mdi-chevron-left'>",
+                    next: "<i class='mdi mdi-chevron-right'>",
+                },
+            },
+            drawCallback: function() {
+                $(".dataTables_paginate > .pagination").addClass(
+                    "pagination-rounded"
+                );
+            },
+        })
+    })
 </script>

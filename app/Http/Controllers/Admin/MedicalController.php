@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Clinic;
+use App\Models\Day;
 use App\Models\Doctor;
+use App\Models\Schedules;
 use App\Models\Speciality;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
@@ -60,7 +62,17 @@ class MedicalController extends Controller
     public function edit($id)
     {
         $medical = Doctor::find($id);
-        return response()->json($medical);
+        if (Auth::user()->hasRole('SuperAdmin')) {
+            $specialities = Speciality::all(); // Likely doesn't need eager loading
+            $clinics = Clinic::with('doctors')->get(); // Example relationship
+        } else {
+            $specialities = Speciality::all(); // Likely doesn't need eager loading
+            $clinics = Clinic::where('user_id', Auth::user()->id)->with('doctors')->get();
+        }
+        $schedules = Schedules::where('doctor_id', $medical->id)->get();
+        $days = Day::all();
+        $doctor_id = $id;
+        return view('admin.users.medical.edit', compact('medical', 'specialities', 'clinics', 'schedules', 'days', 'doctor_id'));
     }
 
     /**

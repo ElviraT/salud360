@@ -42,7 +42,42 @@
         $('#img_descarga').attr('hidden', true);
         $("#myIframe").remove();
     });
-    $(document).on('hidden.bs.modal', '#folder_file', function(e) {
-        location.reload();
-    });
+    $(document).ready(function() {
+        "use strict";
+        $("#file").DataTable({
+            paging: !1,
+            language: {
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "zeroRecords": "No hay registros",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                "infoEmpty": "No hay registros",
+                "infoFiltered": "",
+                "search": "Buscar",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "emptyTable": "No hay datos disponibles en la tabla",
+                "infoFiltered": "",
+                "zeroRecords": "No hay registros",
+                "aria": {
+                    "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                paginate: {
+                    previous: "<i class='mdi mdi-chevron-left'>",
+                    next: "<i class='mdi mdi-chevron-right'>",
+                },
+            },
+            drawCallback: function() {
+                $(".dataTables_paginate > .pagination").addClass(
+                    "pagination-rounded"
+                );
+            },
+        })
+    })
 </script>

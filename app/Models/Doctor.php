@@ -14,6 +14,10 @@ class Doctor extends Model
         'clinic_id',
         'professional_license',
         'bio',
+        'video',
+        'domicile',
+        'emergency',
+        'Face',
         'active',
         'created_by'
     ];

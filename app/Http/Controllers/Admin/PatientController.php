@@ -128,6 +128,7 @@ class PatientController extends Controller
             return response()->json(['message' => 'Paciente no encontrado'], 404);
         }
         $files = File::where('patient_id', $id)->get();
+
         return view('admin.users.patient.edit', [
             'patient' => $patient,
             'user' => $patient->user,

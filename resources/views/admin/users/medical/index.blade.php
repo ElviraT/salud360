@@ -53,10 +53,8 @@
                                             </td>
                                             <td>
                                                 @can('medicals.edit')
-                                                    <a href="#" type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#modal_medical" class="btn btn-success me-2"
-                                                        data-bs-record-id="{{ $item->id }}"
-                                                        data-bs-action="{{ route('medicals.update', $item) }}">
+                                                    <a href="{{ route('medicals.edit', $item) }}" type="button"
+                                                        class="btn btn-success btn-sm me-2">
                                                         <i class="uil-edit-alt"></i>
                                                         {{ __('Edit Medical') }}
                                                     </a>
