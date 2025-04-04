@@ -22,7 +22,7 @@
                                     <th>@lang('Day')</th>
                                     <th>@lang('Start Time') </th>
                                     <th>@lang('End Time')</th>
-                                    <th>@lang('Modalidad')</th>
+                                    <th>@lang('Modality')</th>
                                     <th width="30">@lang('Actions')</th>
                                 </tr>
                             </thead>

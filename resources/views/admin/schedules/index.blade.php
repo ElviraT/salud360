@@ -27,6 +27,7 @@
                                         <th>@lang('Day')</th>
                                         <th>@lang('Start Time') </th>
                                         <th>@lang('End Time')</th>
+                                        <th>@lang('Modality')</th>
                                         <th width="30">@lang('Actions')</th>
                                     </tr>
                                 </thead>
@@ -36,6 +37,7 @@
                                             <td>{{ $item->day->name }}</td>
                                             <td>{{ $item->start_hour }}</td>
                                             <td>{{ $item->end_hour }}</td>
+                                            <td>{{ $item->type_consulting }}</td>
                                             <td>
                                                 @can('schedules.edit')
                                                     <a href="#" type="button" data-bs-toggle="modal"

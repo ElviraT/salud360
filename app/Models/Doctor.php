@@ -1,13 +1,17 @@
 <?php
 
+
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Doctor extends Model
 {
-    protected $fillable =
-    [
+    use HasFactory;
+    protected $fillable = [
         'user_id',
         'speciality_id',
         'name',
@@ -21,21 +25,28 @@ class Doctor extends Model
         'active',
         'created_by'
     ];
-    public function clinic()
+
+    public function clinic(): BelongsTo
     {
         return $this->belongsTo(Clinic::class);
     }
-    public function user()
+
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-    public function speciality()
+
+    public function speciality(): BelongsTo
     {
         return $this->belongsTo(Speciality::class);
     }
-    // Relación con Schedules (un doctor tiene muchos horarios)
-    public function Schedules()
+
+    public function schedules(): HasMany
     {
         return $this->hasMany(Schedules::class);
+    }
+    public function appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class, 'doctor_id');
     }
 }

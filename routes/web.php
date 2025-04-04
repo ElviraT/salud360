@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -140,7 +141,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/banks/update/{bank}', [BankController::class, 'update'])->name('banks.update')->middleware(CheckPlan::class);
     Route::delete('/banks/destroy/{bank}', [BankController::class, 'destroy'])->name('banks.destroy')->middleware(CheckPlan::class);
 
-
+    //APPOINTMENT
+    Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments');
+    Route::post('/appointments/store', [AppointmentController::class, 'store'])->name('appointments.store');
+    Route::get('/appointments/{appointment}/edit', [AppointmentController::class, 'edit'])->name('appointments.edit');
+    Route::put('/appointments/update/{appointment}', [AppointmentController::class, 'update'])->name('appointments.update');
+    Route::delete('/appointments/destroy/{appointment}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
+    Route::get('/doctor-schedules/{modality}/{doctorId}', [AppointmentController::class, 'getDoctorSchedules']);
+    Route::get('/doctor-modality/{doctorId}', [AppointmentController::class, 'getDoctorModality']);
     // CRUD FILE
     Route::post('/folders/file', [FileController::class, 'upload'])->name('files.upload')->middleware(CheckPlan::class);
     Route::delete('/files/destroy/{file}', [FileController::class, 'destroy'])->name('files.destroy')->middleware(CheckPlan::class);

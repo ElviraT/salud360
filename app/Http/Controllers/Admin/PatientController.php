@@ -3,13 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
+use App\Models\AppointmentStatus;
 use App\Models\Contact;
+use App\Models\Currency;
+use App\Models\Doctor;
 use App\Models\File;
 use App\Models\Folder;
 use App\Models\HealthInformation;
 use App\Models\InformedConsent;
 use App\Models\MaritalStatus;
 use App\Models\Patient;
+use App\Models\PatientFamily;
+use App\Models\PaymentMethod;
+use App\Models\PaymentStatus;
 use App\Models\Role;
 use App\Models\Sex;
 use App\Models\TypesBackground;
@@ -120,15 +127,38 @@ class PatientController extends Controller
 
     public function edit(int $id)
     {
+        // Carga el paciente con sus relaciones (usuario, contacto, información de salud)
         $patient = Patient::with(['user', 'contact', 'healthInformation'])->find($id);
-        $marital = MaritalStatus::all();
-        $tiposAntecedentes = TypesBackground::all();
-        $sexes = Sex::all();
+
+        // Verifica si el paciente existe
         if (!$patient) {
             return response()->json(['message' => 'Paciente no encontrado'], 404);
         }
+
+        // Obtiene todos los estados civiles
+        $marital = MaritalStatus::all();
+
+        // Obtiene todos los tipos de antecedentes
+        $tiposAntecedentes = TypesBackground::all();
+
+        // Obtiene todos los sexos
+        $sexes = Sex::all();
+
+        // Obtiene todos los archivos asociados al paciente
         $files = File::where('patient_id', $id)->get();
 
+        // Obtiene las citas del paciente actual
+        $appointments = $this->getPatientAppointments($id);
+
+        // Obtiene todos los pacientes (principales y familiares) del usuario logueado
+        $allPatients = $this->getAllUserPatients();
+        $medicals = Doctor::where('created_by', $patient->created_by)->get();
+        $appointmentstatus = AppointmentStatus::all();
+        $paymentStatus = PaymentStatus::all();
+        $methodPay = PaymentMethod::all();
+        $currency = Currency::all();
+
+        // Retorna la vista con todos los datos necesarios
         return view('admin.users.patient.edit', [
             'patient' => $patient,
             'user' => $patient->user,
@@ -138,7 +168,101 @@ class PatientController extends Controller
             'tiposAntecedentes' => $tiposAntecedentes,
             'sexes' => $sexes,
             'files' => $files,
+            'appointments' => $appointments,
+            'allPatients' => $allPatients,
+            'medicals' => $medicals,
+            'appointmentstatus' => $appointmentstatus,
+            'paymentStatus' => $paymentStatus,
+            'methodPay' => $methodPay,
+            'currency' => $currency,
         ]);
+    }
+
+    /**
+     * Obtiene las citas asociadas a un paciente específico.
+     *
+     * @param int $patientId ID del paciente.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    private function getPatientAppointments(int $patientId)
+    {
+        return Appointment::select([
+            'appointments.id',
+            'appointments.date',
+            'appointments.time',
+            'appointments.type',
+            'doctors.name as doctor_name',
+            'appointment_statuses.name as status_name',
+            'appointment_statuses.color as status_color',
+            'invoices.invoice_number',
+            'invoices.subtotal',
+            'currencies.simbol as currency_symbol',
+            'payment_statuses.name as payment_status'
+        ])
+            ->leftJoin('doctors', 'appointments.doctor_id', '=', 'doctors.id')
+            ->leftJoin('appointment_statuses', 'appointments.appointment_statuses_id', '=', 'appointment_statuses.id')
+            ->leftJoin('invoices', 'invoices.appointment_id', '=', 'appointments.id')
+            ->leftJoin('currencies', 'invoices.currency_id', '=', 'currencies.id')
+            ->leftJoin('payment_statuses', 'invoices.payment_status_id', '=', 'payment_statuses.id')
+            ->where('appointments.patient_id', $patientId)
+            ->orderBy('appointments.date', 'DESC')
+            ->orderBy('appointments.time', 'DESC')
+            ->get();
+    }
+
+    /**
+     * Obtiene todos los pacientes (principales y familiares) del usuario logueado.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    private function getAllUserPatients()
+    {
+        $userId = Auth::user()->id;
+
+        if (Auth::user()->hasRole('SuperAdmin')) {
+            // Si es SuperAdmin, obtiene todos los pacientes
+            $mainPatients = Patient::all();
+            $familyPatients = PatientFamily::all();
+        } else {
+            // Si no es SuperAdmin, obtiene solo los pacientes del usuario
+            $mainPatients = Patient::where('created_by', $userId)->get();
+            $patientIds = $mainPatients->pluck('id');
+            $familyPatients = PatientFamily::whereIn('patient_id', $patientIds)->get();
+        }
+
+        // Combina los pacientes principales y familiares en una sola colección
+        $allPatients = $mainPatients->concat($familyPatients);
+
+        // Formatea los resultados para incluir nombre e ID
+        $formattedPatients = $allPatients->map(function ($patient) {
+            if ($patient instanceof Patient) {
+                // Obtiene el nombre del paciente principal desde la tabla users
+                $user = User::find($patient->user_id);
+                $mainPatientName = $user ? $user->name : 'Usuario no encontrado';
+
+                return [
+                    'id' =>  $patient->id, // Prefijo 'P-' para pacientes principales
+                    'name' => $mainPatientName, // Usamos el nombre del usuario
+                    'type' => 'Principal',
+                ];
+            } else {
+                // Obtiene el ID del paciente principal desde la tabla patients
+                $mainPatientId = $patient->patient_id;
+                // Obtiene el paciente principal
+                $mainPatient = Patient::find($mainPatientId);
+                // Obtiene el nombre del usuario desde la tabla users
+                $user = User::find($mainPatient->user_id);
+                $mainPatientName = $user ? $user->name : 'Usuario no encontrado';
+
+                return [
+                    'id' =>  $patient->id, // Prefijo 'F-' para pacientes familiares
+                    'name' => $patient->name . ' (Familiar de ' . $mainPatientName . ')',
+                    'type' => 'Familiar',
+                ];
+            }
+        });
+
+        return $formattedPatients;
     }
 
     /**

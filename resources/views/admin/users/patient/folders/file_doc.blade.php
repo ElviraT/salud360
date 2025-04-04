@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12 mb-2" align="right">
             {{-- @can('files.upload') --}}
-            <a class="btn btn-info" href="#" data-bs-toggle="modal" data-bs-record-id="{{ $patient->id }}"
+            <a class="btn btn-info btn-sm" href="#" data-bs-toggle="modal" data-bs-record-id="{{ $patient->id }}"
                 data-bs-target="#folder_file"><i class="uil-plus-circle"></i>&nbsp;@lang('Upload File')</a>
             {{-- @endcan --}}
         </div>

@@ -35,7 +35,7 @@
                                         </div>
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="input-block mb-3">
-                                                <label>@lang('Modalidad')</label>
+                                                <label>@lang('Modality')</label>
                                                 <select class="form-control form-small select" name="type_consulting"
                                                     id="type_consulting">
                                                     <option>@lang('Select')</option>

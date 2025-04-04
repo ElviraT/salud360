@@ -6,7 +6,7 @@
             <div class="content-page-header">
                 <h2>{{ __('Patient') . ': ' . $patient->user->name }}</h2>
                 <div class="col-12" align="right">
-                    @can('patients.index')
+                    @can('patients')
                         <a href="{{ route('patients') }}" class="btn btn-info"><i
                                 class=" uil-history-alt"></i>&nbsp;{{ __('Back') }}</a>
                     @endcan
@@ -18,7 +18,6 @@
             <div class="col-sm-12">
                 <div class="card-table">
                     <div class="card-body">
-                        <h4 class="header-title">{{ __('Patient Details') }}</h4>
                         <div class="tab-content">
                             <div class="tab-pane show active" id="bordered-justified-tabs-preview">
                                 <ul class="nav nav-tabs nav-justified nav-bordered mb-3">
@@ -63,9 +62,11 @@
     @include('modales.eliminar')
     @include('modales.visor_img')
     @include('modales.upload')
+    @include('modales.appointment')
 @endsection
 @section('script')
-    @include('admin.users.patient.folders.js')
+    @include('admin.users.patient.js')
+    @include('admin.appointments.js')
     <script>
         $("#birth").datepicker({
             format: 'yyyy-mm-dd',

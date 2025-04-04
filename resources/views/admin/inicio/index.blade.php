@@ -16,7 +16,7 @@
                         </a>
                     </form>
                 </div>
-                <h4 class="page-title">Analytics</h4>
+                <h4 class="page-title">{{ __('Total Users') }}</h4>
             </div>
         </div>
     </div>
@@ -26,27 +26,25 @@
             <div class="card tilebox-one">
                 <div class="card-body">
                     <i class='uil uil-users-alt float-end'></i>
-                    <h6 class="text-uppercase mt-0">Active Users</h6>
-                    <h2 class="my-2" id="active-users-count">121</h2>
-                    <p class="mb-0 text-muted">
-                        <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span>
-                            5.27%</span>
-                        <span class="text-nowrap">Since last month</span>
-                    </p>
+                    <h6 class="text-uppercase mt-0">{{ __('Active Users') }}</h6>
+                    <h2 class="my-2" id="active-users-count">{{ $user }}</h2>
                 </div> <!-- end card-body-->
             </div>
             <!--end card-->
 
             <div class="card tilebox-one">
                 <div class="card-body">
-                    <i class='uil uil-window-restore float-end'></i>
-                    <h6 class="text-uppercase mt-0">Views per minute</h6>
-                    <h2 class="my-2" id="active-views-count">560</h2>
-                    <p class="mb-0 text-muted">
-                        <span class="text-danger me-2"><span class="mdi mdi-arrow-down-bold"></span>
-                            1.08%</span>
-                        <span class="text-nowrap">Since previous week</span>
-                    </p>
+                    <i class='uil uil-medkit float-end'></i>
+                    <h6 class="text-uppercase mt-0">{{ __('Active Medicals') }}</h6>
+                    <h2 class="my-2" id="active-views-count">{{ $medical }}</h2>
+                </div> <!-- end card-body-->
+            </div>
+            <!--end card-->
+            <div class="card tilebox-one">
+                <div class="card-body">
+                    <i class='uil uil-user-check float-end'></i>
+                    <h6 class="text-uppercase mt-0">{{ __('Active Patients') }}</h6>
+                    <h2 class="my-2" id="active-views-count">{{ $total_patient }}</h2>
                 </div> <!-- end card-body-->
             </div>
             <!--end card-->
