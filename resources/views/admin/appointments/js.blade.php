@@ -6,7 +6,7 @@
         modal.addClass('loading');
         // $("#form-enviar").attr('action', data.bsAction);
         $("#method").val('post');
-        $("#patient_id, #medical_id, #type, #appointment_statuses_id, #time, #hour, #currency, #payment_method, #payment_status")
+        $("#patient_id, #medical_id, #type, #appointment_statuses_id, #time, #hour, #currency, #payment_method, #payment_status, #patient_type, #payment_status_id, #payment_method_id")
             .select2({
                 dropdownParent: "#detail_appointment"
             });
@@ -80,6 +80,7 @@
             $('#hour').attr('disabled', false);
             fillSelect('#hour', getAvailableHours($('#time').val()));
         });
+
         // Función para generar las horas disponibles dentro de un rango
 
         function getAvailableHours(timeRange) {
@@ -95,7 +96,20 @@
             return availableHours;
         }
     });
+    $(document).ready(function() {
+        $('#patient_id').on('change', function() {
+            const selectedOption = $(this).find('option:selected');
+            const patientType = selectedOption.data('type');
 
+            if (patientType === 'Familiar') {
+                $('#patient_family_id').val($(this).val());
+                $('#principal_patient_id').val(selectedOption.data('principal'));
+            } else {
+                $('#patient_family_id').val('');
+                $('#principal_patient_id').val('');
+            }
+        });
+    });
     // Habilitar todos los campos antes del envío del formulario
     $(document).on('submit', '#detail_appointment form', function(e) {
         // Habilitar todos los campos disabled

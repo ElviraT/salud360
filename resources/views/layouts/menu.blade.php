@@ -140,6 +140,12 @@
                         </ul>
                     </div>
                 </li>
+                <li class="side-nav-item">
+                    <a href="{{ route('appointments') }}" class="side-nav-link" onclick="loading_show()">
+                        <i class="uil-calendar-alt"></i>
+                        <span> {{ __('Appointments') }} </span>
+                    </a>
+                </li>
             @endcanany
             <li class="side-nav-title">{{ __('Reports') }}</li>
             @can('report.pagos')

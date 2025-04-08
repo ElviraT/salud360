@@ -22,10 +22,13 @@
                                         <option>{{ __('Select') }}</option>
                                         @foreach ($allPatients as $item)
                                             <option value="{{ $item['id'] }}"
-                                                {{ isset($patient) && $item['id'] == $patient->id ? 'selected' : '' }}>
+                                                {{ isset($patient) && $item['id'] == $patient->id ? 'selected' : '' }}
+                                                data-type="{{ $item['type'] }}"
+                                                data-principal="{{ $item['principal'] }}">
                                                 {{ $item['name'] }}
                                             </option>
                                         @endforeach
+                                        <input type="text" name="patient_family_id" id="principal_patient_id">
                                     </select>
                                 </div>
                             </div>
@@ -103,15 +106,15 @@
                         <div class="row">
                             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
 
-                            <div class="col-lg-3 col-md-12 mb-3">
+                            <div class="col-lg-4 col-md-12 mb-3">
                                 <label>{{ __('Tipo de Paciente') }}</label>
-                                <select name="patient_type" class="select2 form-control" required>
+                                <select name="patient_type" id="patient_type" class="select2 form-control" required>
                                     <option value="patient" selected>{{ __('Paciente Principal') }}</option>
                                     <option value="family">{{ __('Paciente Familiar') }}</option>
                                 </select>
                             </div>
 
-                            <div class="col-lg-3 col-md-12 mb-3">
+                            <div class="col-lg-4 col-md-12 mb-3">
                                 <label>{{ __('Payment Status') }}</label>
                                 <select name="payment_status_id" id="payment_status_id" class="select2 form-control"
                                     data-toggle="select2" required>
@@ -123,7 +126,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-lg-3 col-md-12 mb-3">
+                            <div class="col-lg-4 col-md-12 mb-3">
                                 <label>{{ __('Payment Method') }}</label>
                                 <select name="payment_method_id" id="payment_method_id" class="select2 form-control"
                                     data-toggle="select2" required>
@@ -149,8 +152,8 @@
                             </div>
                             <div class="col-lg-4 col-md-12 mb-3">
                                 <label>@lang('Monto')</label>
-                                <input type="number" step="0.01" name="amount" id="amount" class="form-control"
-                                    placeholder="@lang('Enter Monto')">
+                                <input type="number" step="0.01" name="amount" id="amount"
+                                    class="form-control" placeholder="@lang('Enter Monto')">
                             </div>
                         </div>
                     </div>
